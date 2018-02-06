@@ -4,7 +4,12 @@
   "description": "A component library to create frontends for webshops in Vue",
   "main": "dist/vue-storefront.js",
   "scripts": {
-    "test": "echo \"No testing yet!\" && exit 1"
+    "test": "echo \"No testing yet!\" && exit 1",
+    "build": "rollup src/index.js --o dist/vue-storefront.js --f cjs",
+    "watch": "npm-watch"
+  },
+  "watch": {
+    "build": "src/*.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +27,10 @@
   "bugs": {
     "url": "https://github.com/BjornDCode/vue-storefront/issues"
   },
-  "homepage": "https://github.com/BjornDCode/vue-storefront#readme"
+  "homepage": "https://github.com/BjornDCode/vue-storefront#readme",
+  "devDependencies": {
+    "npm-watch": "^0.3.0",
+    "rollup": "^0.55.3",
+    "shopify-buy": "^1.0.2"
+  }
 }

@@ -59,4 +59,4 @@ typings/
 
 # Custom
 .DS_Store
-
+/dist
