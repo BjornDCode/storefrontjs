@@ -2,9 +2,9 @@
   "name": "vue-storefront",
   "version": "0.1.0",
   "description": "A component library to create frontends for webshops in Vue",
-  "main": "index.js",
+  "main": "dist/vue-storefront.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"No testing yet!\" && exit 1"
   },
   "repository": {
     "type": "git",
