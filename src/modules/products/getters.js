@@ -1,6 +1,6 @@
 export default {
-    allProducts: state => state.shop.products.all,
+    allProducts: state => state.all,
     allProductsCount: (state, getters) => getters.allProducts.length,
-    activeProduct: state => state.shop.products.active,
+    activeProduct: state => state.active,
     productById: (state, getters) => (id) => getters.allProducts.find(product => product.id === id)
 };
