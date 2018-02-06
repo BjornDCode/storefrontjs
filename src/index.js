@@ -1,5 +1,7 @@
 import Client from 'shopify-buy';
 
+import productsModule from './modules/products';
+
 let Storefront = {};
 
 Storefront.install = function(Vue, options) {
@@ -9,7 +11,11 @@ Storefront.install = function(Vue, options) {
         storefrontAccessToken: options.storeFrontAccessToken
     });
 
-    console.log('this is now watching')
+    options.store.registerModule('shop', {
+        state: {}
+    });
+
+    options.store.registerModule(['shop', 'products'], productsModule);
 
 }
 
