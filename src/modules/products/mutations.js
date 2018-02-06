@@ -9,10 +9,10 @@ import {
 
 export default {
 
-    [ALL_PRODUCTS_START] (state) => {
+    [ALL_PRODUCTS_START] (state) {
         state.loading = true;
     },
-    [ALL_PRODUCTS_FAIL] (state) => {
+    [ALL_PRODUCTS_FAIL] (state) {
         state.loading = false;
     },
     [ALL_PRODUCTS_SUCCESS] (state, products) {
