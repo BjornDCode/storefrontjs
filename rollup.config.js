@@ -1,3 +1,4 @@
+// import resolve from 'rollup-plugin-node-resolve';
 import vue from 'rollup-plugin-vue';
 
 export default {
@@ -6,5 +7,8 @@ export default {
         file: 'dist/vue-storefront.js',
         format: 'cjs'
     },
-    plugins: [ vue() ]
+    plugins: [ 
+        // resolve(),
+        vue()
+     ]
 }

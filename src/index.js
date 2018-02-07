@@ -1,24 +1,37 @@
 import Client from 'shopify-buy';
 
-import productsModule from './modules/products';
+import productsModule from './modules/products/index';
 
-let Storefront = {};
+import ProductCard from './components/ProductCard.vue';
+import ProductCardImage from './components/ProductCardImage.vue';
+import ProductCardPrice from './components/ProductCardPrice.vue';
+import ProductCardTitle from './components/ProductCardTitle.vue';
+import ProductCardDescription from './components/ProductCardDescription.vue';
 
-Storefront.install = function(Vue, options) {
+let Storefront = {
 
-    Vue.prototype.$client = Client.buildClient({
-        domain: options.domain,
-        storefrontAccessToken: options.storeFrontAccessToken
-    });
+    install(Vue, options) {
 
-    options.store.registerModule('shop', {
-        state: {}
-    });
+        Vue.prototype.$client = Client.buildClient({
+            domain: options.domain,
+            storefrontAccessToken: options.storeFrontAccessToken
+        });
 
-    options.store.registerModule(['shop', 'products'], productsModule);
+        options.store.registerModule('shop', {
+            state: {}
+        });
 
-}
+        options.store.registerModule(['shop', 'products'], productsModule);
 
+        Vue.component('sf-product-card', ProductCard);
+        Vue.component('sf-product-card-image', ProductCardImage);
+        Vue.component('sf-product-card-price', ProductCardPrice);
+        Vue.component('sf-product-card-title', ProductCardTitle);
+        Vue.component('sf-product-card-description', ProductCardDescription);
+
+    }
+
+};
 
 
 export default Storefront;
