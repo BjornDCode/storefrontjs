@@ -2,6 +2,10 @@ import Client from 'shopify-buy';
 
 import productsModule from './modules/products/index';
 
+import ProductsPage from './pages/ProductsPage.vue';
+import CollectionPage from './pages/CollectionPage.vue';
+import TagPage from './pages/TagPage.vue';
+
 import ProductCard from './components/ProductCard.vue';
 import ProductCardImage from './components/ProductCardImage.vue';
 import ProductCardPrice from './components/ProductCardPrice.vue';
@@ -18,6 +22,17 @@ let Storefront = {
             domain: options.domain,
             storefrontAccessToken: options.storeFrontAccessToken
         });
+
+        if (options.router) {
+            const routes = [
+                { path: '/products', component: ProductsPage },
+                { path: '/collection/:handle', component: CollectionPage },
+                { path: '/tag/:handle', component: TagPage }
+            ];
+
+            options.router.addRoutes(routes);
+            console.log(options.router)
+        }
 
         options.store.registerModule('shop', {
             state: {}
