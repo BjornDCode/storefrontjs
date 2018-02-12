@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/BjornDCode/vue-storefront#readme",
   "devDependencies": {
+    "acorn": "^5.4.1",
     "npm-watch": "^0.3.0",
     "rollup": "^0.55.3",
     "rollup-plugin-node-resolve": "^3.0.2",

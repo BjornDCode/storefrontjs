@@ -13,9 +13,13 @@ export default {
     allProducts({commit}) {
         commit(ALL_PRODUCTS_START);
 
-        return this._vm.$client.product.fetchAll().then(products => {
-            commit(ALL_PRODUCTS_SUCCESS, products);
-        });
+        return this._vm.$client.product.fetchAll()
+            .then(products => {
+                commit(ALL_PRODUCTS_SUCCESS, products);
+            })
+            .catch(error => {
+                commit(ALL_PRODUCTS_FAIL, error);
+            });
     },
     activeProduct({commit, getters}, id) {
         commit(ACTIVE_PRODUCT_START);

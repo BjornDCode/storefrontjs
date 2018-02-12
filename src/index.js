@@ -1,6 +1,6 @@
 import Client from 'shopify-buy';
 
-import productsModule from './modules/products/index';
+import productsModule from './modules/products/index.js';
 
 import ProductsPage from './pages/ProductsPage.vue';
 import CollectionPage from './pages/CollectionPage.vue';
@@ -20,8 +20,16 @@ let Storefront = {
 
         Vue.prototype.$client = Client.buildClient({
             domain: options.domain,
-            storefrontAccessToken: options.storeFrontAccessToken
+            storefrontAccessToken: options.storefrontAccessToken
         });
+
+        Vue.component('sf-product-card', ProductCard);
+        Vue.component('sf-product-card-image', ProductCardImage);
+        Vue.component('sf-product-card-price', ProductCardPrice);
+        Vue.component('sf-product-card-title', ProductCardTitle);
+        Vue.component('sf-product-card-description', ProductCardDescription);
+
+        Vue.component('sf-product-list', ProductList);
 
         if (options.router) {
             const routes = [
@@ -31,7 +39,6 @@ let Storefront = {
             ];
 
             options.router.addRoutes(routes);
-            console.log(options.router)
         }
 
         options.store.registerModule('shop', {
@@ -39,14 +46,6 @@ let Storefront = {
         });
 
         options.store.registerModule(['shop', 'products'], productsModule);
-
-        Vue.component('sf-product-card', ProductCard);
-        Vue.component('sf-product-card-image', ProductCardImage);
-        Vue.component('sf-product-card-price', ProductCardPrice);
-        Vue.component('sf-product-card-title', ProductCardTitle);
-        Vue.component('sf-product-card-description', ProductCardDescription);
-
-        Vue.component('sf-product-list', ProductList);
 
     }
 
