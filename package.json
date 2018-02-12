@@ -9,7 +9,7 @@
     "watch": "npm-watch"
   },
   "watch": {
-    "build": "src/*.js"
+    "build": "src/*.*"
   },
   "repository": {
     "type": "git",

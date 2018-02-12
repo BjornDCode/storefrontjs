@@ -1,6 +1,7 @@
 import Client from 'shopify-buy';
 
 import productsModule from './modules/products/index.js';
+import collectionsModule from './modules/collections/index.js';
 
 import ProductsPage from './pages/ProductsPage.vue';
 import CollectionPage from './pages/CollectionPage.vue';
@@ -46,6 +47,8 @@ let Storefront = {
         });
 
         options.store.registerModule(['shop', 'products'], productsModule);
+
+        options.store.registerModule(['shop', 'collections'], collectionsModule);
 
     }
 
