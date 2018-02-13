@@ -4,16 +4,12 @@ import productsModule from './modules/products/index.js';
 import collectionsModule from './modules/collections/index.js';
 
 import ProductsPage from './pages/ProductsPage.vue';
+import ProductPage from './pages/ProductPage.vue';
 import CollectionPage from './pages/CollectionPage.vue';
-import TagPage from './pages/TagPage.vue';
 
 import ProductCard from './components/ProductCard.vue';
-import ProductCardImage from './components/ProductCardImage.vue';
-import ProductCardPrice from './components/ProductCardPrice.vue';
-import ProductCardTitle from './components/ProductCardTitle.vue';
-import ProductCardDescription from './components/ProductCardDescription.vue';
-
 import ProductList from './components/ProductList.vue';
+import Product from './components/Product.vue';
 
 let Storefront = {
 
@@ -25,18 +21,14 @@ let Storefront = {
         });
 
         Vue.component('sf-product-card', ProductCard);
-        Vue.component('sf-product-card-image', ProductCardImage);
-        Vue.component('sf-product-card-price', ProductCardPrice);
-        Vue.component('sf-product-card-title', ProductCardTitle);
-        Vue.component('sf-product-card-description', ProductCardDescription);
-
         Vue.component('sf-product-list', ProductList);
+        Vue.component('sf-product', Product);
 
         if (options.router) {
             const routes = [
                 { path: '/products', component: ProductsPage },
-                { path: '/collection/:handle', component: CollectionPage },
-                { path: '/tag/:handle', component: TagPage }
+                { path: '/product/:handle', component: ProductPage },
+                { path: '/collection/:handle', component: CollectionPage }
             ];
 
             options.router.addRoutes(routes);
@@ -50,6 +42,8 @@ let Storefront = {
 
         options.store.registerModule(['shop', 'collections'], collectionsModule);
 
+                  
+ 
     }
 
 };

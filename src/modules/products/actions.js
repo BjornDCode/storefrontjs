@@ -21,13 +21,13 @@ export default {
                 commit(ALL_PRODUCTS_FAIL, error);
             });
     },
-    activeProduct({commit, getters}, id) {
+    activeProduct({commit, getters}, handle) {
         commit(ACTIVE_PRODUCT_START);
 
         if (getters.allProductsCount) {
-            commit(ACTIVE_PRODUCT_SUCCESS, getters.productById(id));
+            commit(ACTIVE_PRODUCT_SUCCESS, getters.productByHandle(handle));
         } else {
-            return this._vm.$client.product.fetch(id).then(product => {
+            return this._vm.$client.product.fetchByHandle(handle).then(product => {
                 commit(ACTIVE_PRODUCT_SUCCESS, product);
             });
         }
