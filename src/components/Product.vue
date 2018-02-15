@@ -8,19 +8,8 @@
             <p>{{ product.vendor }}</p>
             <div class="product__price">{{ price }}</div>
             <div class="product__description" v-html="product.descriptionHtml"></div>
-            <div class="product__options">
-                <div v-for="option in options" class="option">
-                    <label>{{ option.name }}</label>
-                    <span v-if="option.values.length === 1">
-                        {{ option.selected }}
-                    </span>
-                    <select v-else @change="updateOptions" :name="option.name">
-                        <option v-for="value in option.values" :value="value.value">
-                            {{ value.value }}
-                        </option>
-                    </select>
-                </div>
-            </div>
+            <sf-product-options-select :product="product" v-model="variant"></sf-product-options-select>
+            
         </div>
     </div>
 </template>
@@ -47,42 +36,13 @@
 
             price() {
                 return this.product.variants[this.variant].price;
-            },
-
-            options() {
-                return this.product.options.map(option => {
-                    return {
-                        name: option.name,
-                        values: option.values,
-                        selected: option.values[0].value
-                    }
-                });
             }
         },
 
         methods: {
-            updateOptions(e) {
-                const obj = this.options.find(option => option.name === e.target.name);
-                const objIndex = this.options.findIndex(option => option.name === e.target.name);
+            
 
-                this.options.splice(objIndex, 1, Object.assign(obj, { selected: e.target.value }));
-
-                this.updateVariant();
-            },
-
-            updateVariant() {
-                let variant = this.product.variants.filter(variant => {
-                    const filteredOptions = this.options.filter((option, index) => {
-                        return variant.selectedOptions[index].value == option.selected
-
-                    });
-                    return filteredOptions.length == this.options.length;
-                })[0];
-
-                this.variant = this.product.variants.findIndex(variantOption => {
-                    return variantOption.id == variant.id
-                });
-            }
+            
         }
     }
 </script>
