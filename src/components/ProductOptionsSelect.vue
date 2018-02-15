@@ -1,5 +1,9 @@
 <template>
-    <sf-product-options :product="product" :variant="variant" @update="variant => { $emit('update', variant) }">
+    <sf-product-options 
+        :product="product" 
+        :variant="variant" 
+        @update="variant => { $emit('update', variant) }"
+    >
         <div class="product__options" slot-scope="{ options, updateOptions }">
             <div v-for="option in options" class="option">
                 <label>{{ option.name }}</label>

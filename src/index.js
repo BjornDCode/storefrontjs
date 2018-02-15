@@ -48,7 +48,7 @@ let Storefront = {
 
         options.store.registerModule(['shop', 'collections'], collectionsModule);
 
-        
+              
  
     }
 
