@@ -70,9 +70,24 @@
             updateOptions(e) {
                 const obj = this.options.find(option => option.name === e.target.name);
                 const objIndex = this.options.findIndex(option => option.name === e.target.name);
-                
+
                 this.options.splice(objIndex, 1, Object.assign(obj, { selected: e.target.value }));
-                console.log('OPTIONS', this.options)
+
+                this.updateVariant();
+            },
+
+            updateVariant() {
+                let variant = this.product.variants.filter(variant => {
+                    const filteredOptions = this.options.filter((option, index) => {
+                        return variant.selectedOptions[index].value == option.selected
+
+                    });
+                    return filteredOptions.length == this.options.length;
+                })[0];
+
+                this.variant = this.product.variants.findIndex(variantOption => {
+                    return variantOption.id == variant.id
+                });
             }
         }
     }
