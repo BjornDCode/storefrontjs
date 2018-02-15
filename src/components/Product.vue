@@ -27,12 +27,6 @@
 
 <script>
     export default {
-
-        // 1. Declare empty options array on data
-        // 2. Watch this.product and update options with new options.objects
-        // 3. <Select @change> updates this.options
-        // 4. Watch options and update variant
-
         props: {
             product: {
                 type: Object,
