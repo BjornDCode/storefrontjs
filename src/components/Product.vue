@@ -1,9 +1,9 @@
 <template>
     <div class="product" v-if="product">
-        <sf-product-images-gallery 
+        <sf-product-images-slider 
             :product="product"
             mode="products"
-        ></sf-product-images-gallery>
+        ></sf-product-images-slider>
         <div class="product__info">
             <h1>{{ product.title }}</h1>
             <p>{{ product.vendor }}</p>

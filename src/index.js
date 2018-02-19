@@ -48,7 +48,7 @@ let Storefront = {
 
         Vue.component('sf-product-images', ProductImages);
         Vue.component('sf-product-images-gallery', ProductImagesGallery);
-        Vue.component('sf-product-images-sluder', ProductImagesSlider);
+        Vue.component('sf-product-images-slider', ProductImagesSlider);
 
         if (options.router) {
             const routes = [
@@ -70,7 +70,7 @@ let Storefront = {
  
     }
 
-     
+              
 
 };
 
