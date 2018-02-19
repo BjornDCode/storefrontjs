@@ -10,6 +10,7 @@ import CollectionPage from './pages/CollectionPage.vue';
 import ProductCard from './components/ProductCard.vue';
 import ProductList from './components/ProductList.vue';
 import Product from './components/Product.vue';
+import ProductDescription from './components/ProductDescription.vue';
 import ProductOptions from './components/ProductOptions.vue';
 import ProductOptionsRadio from './components/ProductOptionsRadio.vue';
 import ProductOptionsSelect from './components/ProductOptionsSelect.vue';
@@ -29,6 +30,7 @@ let Storefront = {
         Vue.component('sf-product-options', ProductOptions);
         Vue.component('sf-product-options-radio', ProductOptionsRadio);
         Vue.component('sf-product-options-select', ProductOptionsSelect);
+        Vue.component('sf-product-description', ProductDescription);
 
         if (options.router) {
             const routes = [
@@ -48,7 +50,7 @@ let Storefront = {
 
         options.store.registerModule(['shop', 'collections'], collectionsModule);
 
-              
+           
  
     }
 
