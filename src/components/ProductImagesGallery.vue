@@ -4,7 +4,7 @@
             <div class="product__images--selected">
                 <img :src="images[selectedImage].src" :alt="images[selectedImage].altText">
             </div>
-            <div class="product__images--list" style="display: flex; align-items: center;">
+            <div class="product__images--list">
                 <a 
                     v-for="(image, index) in images"
                     @click.prevent="updateActiveImage" 
@@ -16,7 +16,6 @@
                         :src="image.src" 
                         :alt="image.altText" 
                         :class="(index == selectedImage) ? 'active' : ''" 
-                        style="display: block; max-width: 100px; border: 1px solid #ddd;" 
                     >
                 </a>
             </div>

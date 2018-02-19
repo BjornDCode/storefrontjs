@@ -13,7 +13,6 @@
 
         computed: {
             images() {
-                console.log(this.mode)
                 if (this.mode == "variants") {
                     return this.product.variants.map(variant => variant.image);
                 }
