@@ -1,8 +1,9 @@
 <template>
     <div class="product" v-if="product">
-        <div class="product__image">
-            <img :src="image.src" :alt="image.altText">
-        </div>
+        <sf-product-images-gallery 
+            :product="product"
+            mode="products"
+        ></sf-product-images-gallery>
         <div class="product__info">
             <h1>{{ product.title }}</h1>
             <p>{{ product.vendor }}</p>
@@ -29,19 +30,9 @@
         },
 
         computed: {
-            image() {
-                return this.product.images[0];
-            },
-
             price() {
                 return this.product.variants[this.variant].price;
             }
-        },
-
-        methods: {
-            
-
-            
         }
     }
 </script>
