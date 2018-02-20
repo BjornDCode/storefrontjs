@@ -14,6 +14,7 @@ import ProductList from './components/ProductList.vue';
 
 import Product from './components/Product.vue';
 import ProductDescription from './components/ProductDescription.vue';
+import ProductActions from './components/ProductActions.vue';
 
 import ProductOptions from './components/ProductOptions.vue';
 import ProductOptionsRadio from './components/ProductOptionsRadio.vue';
@@ -42,6 +43,7 @@ let Storefront = {
 
         Vue.component('sf-product', Product);
         Vue.component('sf-product-description', ProductDescription);
+        Vue.component('sf-product-actions', ProductActions);
 
         Vue.component('sf-product-options', ProductOptions);
         Vue.component('sf-product-options-radio', ProductOptionsRadio);
@@ -77,7 +79,7 @@ let Storefront = {
  
     }
 
-    
+                           
 
 };
 

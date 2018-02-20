@@ -10,6 +10,7 @@
             <div class="product__price">{{ price }}</div>
             <sf-product-description :html="product.descriptionHtml"></sf-product-description>
             <sf-product-options-select :product="product" v-model="variant"></sf-product-options-select>
+            <sf-product-actions :product="product" :variant="variant"></sf-product-actions>
         </div>
     </div>
 </template>
