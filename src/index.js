@@ -2,10 +2,12 @@ import Client from 'shopify-buy';
 
 import productsModule from './modules/products/index.js';
 import collectionsModule from './modules/collections/index.js';
+import cartModule from './modules/cart/index.js';
 
 import ProductsPage from './pages/ProductsPage.vue';
 import ProductPage from './pages/ProductPage.vue';
 import CollectionPage from './pages/CollectionPage.vue';
+import CartPage from './pages/CartPage.vue';
 
 import ProductCard from './components/ProductCard.vue';
 import ProductList from './components/ProductList.vue';
@@ -23,6 +25,8 @@ import ProductTab from './components/ProductTab.vue';
 import ProductImages from './components/ProductImages.vue';
 import ProductImagesGallery from './components/ProductImagesGallery.vue';
 import ProductImagesSlider from './components/ProductImagesSlider.vue';
+
+import Cart from './components/Cart.vue';
 
 let Storefront = {
 
@@ -50,11 +54,14 @@ let Storefront = {
         Vue.component('sf-product-images-gallery', ProductImagesGallery);
         Vue.component('sf-product-images-slider', ProductImagesSlider);
 
+        Vue.component('sf-cart', Cart);
+
         if (options.router) {
             const routes = [
                 { path: '/products', component: ProductsPage },
                 { path: '/product/:handle', component: ProductPage },
-                { path: '/collection/:handle', component: CollectionPage }
+                { path: '/collection/:handle', component: CollectionPage },
+                { path: '/cart', component: CartPage }
             ];
 
             options.router.addRoutes(routes);
@@ -65,12 +72,12 @@ let Storefront = {
         });
 
         options.store.registerModule(['shop', 'products'], productsModule);
-
         options.store.registerModule(['shop', 'collections'], collectionsModule);
+        options.store.registerModule(['shop', 'cart'], cartModule);
  
     }
 
-              
+    
 
 };
 

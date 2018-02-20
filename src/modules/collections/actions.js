@@ -20,8 +20,6 @@ export default {
     activeCollection({commit, getters}, handle) {
         commit(ACTIVE_COLLECTION_START);
 
-        console.log('HANDLE', handle)
-
         if (getters.allCollectionsCount) {
             commit(ACTIVE_COLLECTION_SUCCESS, getters.collectionByHandle(handle));
         } else {

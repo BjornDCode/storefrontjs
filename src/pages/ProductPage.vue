@@ -11,7 +11,6 @@
 
         computed: {
             product() {
-                console.log(this.$store.getters['products/activeProduct'])
                 return this.$store.getters['products/activeProduct'];
             }
         },
