@@ -1,5 +1,8 @@
 <template>
-    <sf-product-list :products="products"></sf-product-list>
+    <div>
+        <h1>Products</h1>
+        <sf-product-list :products="products"></sf-product-list>
+    </div>
 </template>
 
 <script>
@@ -15,6 +18,7 @@
                 return this.$store.getters['products/allProductsCount'];
             },
             products() {
+                console.log('PRODUCTS', this.$store.getters['products/allProducts'])
                 return this.$store.getters['products/allProducts'];
             }
         },

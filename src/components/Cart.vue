@@ -6,7 +6,6 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Image</th>
                         <th>Product Name</th>
                         <th>Price</th>
                         <th>Quantity</th>
@@ -15,9 +14,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- <tr v-for="(lineItem, index) in lineItems">
-                        <td></td>
-                    </tr> -->
+                    <tr v-for="(lineItem, index) in lineItems">
+                        <td>
+                            <a href="#">
+                                {{ lineItem.title }}
+                            </a>
+                        </td>
+                        <td>
+                            <span>
+                                {{ lineItem.variant.price }}
+                            </span>
+                        </td>
+                        <td>
+                            <input type="number" :value="lineItem.quantity">
+                        </td>
+                        <td>
+                            <span v-text="lineItem.variant.price * lineItem.quantity"></span>
+                        </td>
+                        <td>
+                            <button>
+                                &times;
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

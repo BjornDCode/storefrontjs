@@ -73,13 +73,13 @@ let Storefront = {
             state: {}
         });
 
-        options.store.registerModule(['shop', 'products'], productsModule);
+        options.store.registerModule(['shop', 'products'], productsModule,);
         options.store.registerModule(['shop', 'collections'], collectionsModule);
         options.store.registerModule(['shop', 'cart'], cartModule);
  
     }
 
-                           
+          
 
 };
 
