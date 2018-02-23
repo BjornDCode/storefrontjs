@@ -23,6 +23,7 @@ export default {
     },
 
     addToCart({ commit, getters, dispatch }, lineItem) {
+        console.log(lineItem)
         if (!getters.checkout) {
             dispatch('createCheckout').then(() => {
                 dispatch('addLineItem', lineItem);

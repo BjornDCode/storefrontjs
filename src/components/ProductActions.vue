@@ -3,7 +3,7 @@
         <button @click="addToCart">Add To Cart</button>
         <div class="product__actions--quantity">
             <label for="quantity">Quantity</label>
-            <input type="number" id="quantity" v-model="quantity">
+            <input type="number" id="quantity" v-model.number="quantity">
         </div>
     </div>
 </template>
