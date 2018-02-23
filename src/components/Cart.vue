@@ -16,9 +16,9 @@
                 <tbody>
                     <tr v-for="(lineItem, index) in lineItems">
                         <td>
-                            <a href="#">
+                            <!-- <a :href="'/product/' + lineItem.variant.product.handle"> -->
                                 {{ lineItem.title }}
-                            </a>
+                            <!-- </a> -->
                         </td>
                         <td>
                             <span>
@@ -53,6 +53,12 @@
             </div>
         </div>
 
+        <div class="cart__actions">
+            <a :href="checkout.webUrl" class="cart__actions--checkout">
+                Checkout
+            </a>
+        </div>
+
         <slot name="footer"></slot>
     </div>
 </template>
@@ -80,6 +86,9 @@
         },
 
         mounted() {
+            if (this.$route.query.hasOwnProperty('clear')) {
+                this.createCheckout();
+            }
             console.log(this.checkout)
         },
 
