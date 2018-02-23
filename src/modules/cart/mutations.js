@@ -9,7 +9,11 @@ import {
 
     REMOVE_FROM_CART_START,
     REMOVE_FROM_CART_SUCCESS,
-    REMOVE_FROM_CART_FAIL
+    REMOVE_FROM_CART_FAIL,
+
+    UPDATE_QUANTITY_START,
+    UPDATE_QUANTITY_SUCCESS,
+    UPDATE_QUANTITY_FAIL
 } from './mutation-types';
 
 export default {
@@ -45,6 +49,16 @@ export default {
     },
     [REMOVE_FROM_CART_FAIL] (state, error) {
         state.loading = false;
-    }
+    },
 
+    [UPDATE_QUANTITY_START] (state) {
+        state.loading = true;
+    },
+    [UPDATE_QUANTITY_SUCCESS] (state, checkout) {
+        state.loading = false;
+        state.checkout = checkout;
+    },
+    [UPDATE_QUANTITY_FAIL] (state, error){
+        state.loading = false;
+    }
 }

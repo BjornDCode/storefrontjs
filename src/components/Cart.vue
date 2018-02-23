@@ -26,7 +26,13 @@
                             </span>
                         </td>
                         <td>
-                            <input type="number" :value="lineItem.quantity">
+                            <input 
+                                @change="updateQuantity" 
+                                type="number" 
+                                :data-id="lineItem.id"
+                                :value="lineItem.quantity"
+                                :disabled="loading" 
+                            >
                         </td>
                         <td>
                             <span v-text="lineItem.variant.price * lineItem.quantity"></span>
@@ -53,6 +59,9 @@
             },
             lineItems() {
                 return this.$store.getters['cart/lineItems'];
+            },
+            loading() {
+                return this.$store.getters['cart/isLoading'];
             }
         },
 
@@ -72,6 +81,15 @@
             },
             removeFromCart(e) {
                 this.$store.dispatch('cart/removeLineItem', [e.currentTarget.value]);
+            },
+
+            updateQuantity(e) {
+                const lineItem = [{
+                    id: e.currentTarget.dataset.id,
+                    quantity: Number(e.currentTarget.value)
+                }];
+
+                this.$store.dispatch('cart/updateQuantity', lineItem)
             }
         }
     }

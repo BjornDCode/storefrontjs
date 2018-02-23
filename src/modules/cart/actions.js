@@ -9,7 +9,11 @@ import {
 
     REMOVE_FROM_CART_START,
     REMOVE_FROM_CART_SUCCESS,
-    REMOVE_FROM_CART_FAIL
+    REMOVE_FROM_CART_FAIL,
+
+    UPDATE_QUANTITY_START,
+    UPDATE_QUANTITY_SUCCESS,
+    UPDATE_QUANTITY_FAIL
 } from './mutation-types';
 
 export default {
@@ -23,7 +27,6 @@ export default {
     },
 
     addToCart({ commit, getters, dispatch }, lineItem) {
-        console.log(lineItem)
         if (!getters.checkout) {
             dispatch('createCheckout').then(() => {
                 dispatch('addLineItem', lineItem);
@@ -46,6 +49,14 @@ export default {
         return this._vm.$client.checkout.removeLineItems(getters.checkout.id, lineItem)
             .then(checkout => commit(REMOVE_FROM_CART_SUCCESS, checkout))
             .catch(error => commit(REMOVE_FROM_CART_FAIL));
+    },
+
+    updateQuantity({ commit, getters }, lineItem) {
+        commit(UPDATE_QUANTITY_START);
+
+        return this._vm.$client.checkout.updateLineItems(getters.checkout.id, lineItem)
+            .then(checkout => commit(UPDATE_QUANTITY_SUCCESS, checkout))
+            .catch(error => commit(UPDATE_QUANTITY_FAIL, error));
     }
 
 }
