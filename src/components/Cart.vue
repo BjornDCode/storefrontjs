@@ -47,6 +47,12 @@
             </table>
         </div>
 
+        <div class="cart__summary">
+            <div class="cart__summary--total">
+                Subtotal: <span>{{ checkout.subtotalPrice }}</span>
+            </div>
+        </div>
+
         <slot name="footer"></slot>
     </div>
 </template>
