@@ -28,6 +28,7 @@ import ProductImagesGallery from './components/ProductImagesGallery.vue';
 import ProductImagesSlider from './components/ProductImagesSlider.vue';
 
 import Cart from './components/Cart.vue';
+import CartLink from './components/CartLink.vue';
 
 let Storefront = {
 
@@ -57,6 +58,7 @@ let Storefront = {
         Vue.component('sf-product-images-slider', ProductImagesSlider);
 
         Vue.component('sf-cart', Cart);
+        Vue.component('sf-cart-link', CartLink);
 
         if (options.router) {
             const routes = [
