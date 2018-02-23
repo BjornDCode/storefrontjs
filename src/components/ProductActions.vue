@@ -1,9 +1,9 @@
 <template>
     <div class="product__actions">
-        <button @click="addToCart">Add To Cart</button>
+        <button @click="addToCart" :disable="cartLoading">Add To Cart</button>
         <div class="product__actions--quantity">
             <label for="quantity">Quantity</label>
-            <input type="number" id="quantity" v-model.number="quantity">
+            <input type="number" id="quantity" v-model.number="quantity" :disabled="cartLoading">
         </div>
     </div>
 </template>
@@ -24,6 +24,12 @@
         data() {
             return {
                 quantity: 1
+            }
+        },
+
+        computed: {
+            cartLoading() {
+                return this.$store.getters['cart/isLoading'];
             }
         },
 
