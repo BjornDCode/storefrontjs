@@ -52,6 +52,8 @@
 </template>
 
 <script>
+    import { debounce } from 'lodash';
+
     export default {
         computed: {
             checkout() {
@@ -82,15 +84,14 @@
             removeFromCart(e) {
                 this.$store.dispatch('cart/removeLineItem', [e.currentTarget.value]);
             },
-
-            updateQuantity(e) {
+            updateQuantity: debounce(function(e) {
                 const lineItem = [{
-                    id: e.currentTarget.dataset.id,
-                    quantity: Number(e.currentTarget.value)
+                    id: e.target.dataset.id,
+                    quantity: Number(e.target.value)
                 }];
 
                 this.$store.dispatch('cart/updateQuantity', lineItem)
-            }
+            }, 500)
         }
     }
 </script>
