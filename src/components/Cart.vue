@@ -32,7 +32,7 @@
                             <span v-text="lineItem.variant.price * lineItem.quantity"></span>
                         </td>
                         <td>
-                            <button>
+                            <button @click="removeFromCart" :value="lineItem.id">
                                 &times;
                             </button>
                         </td>
@@ -69,6 +69,9 @@
         methods: {
             createCheckout() {
                 this.$store.dispatch('cart/createCheckout');
+            },
+            removeFromCart(e) {
+                this.$store.dispatch('cart/removeLineItem', [e.currentTarget.value]);
             }
         }
     }

@@ -3,10 +3,13 @@ import {
     CREATE_CHECKOUT_SUCCESS,
     CREATE_CHECKOUT_FAIL,
 
-
     ADD_TO_CART_START,
     ADD_TO_CART_SUCCESS,
-    ADD_TO_CART_FAIL
+    ADD_TO_CART_FAIL,
+
+    REMOVE_FROM_CART_START,
+    REMOVE_FROM_CART_SUCCESS,
+    REMOVE_FROM_CART_FAIL
 } from './mutation-types';
 
 export default {
@@ -30,6 +33,17 @@ export default {
         state.checkout = checkout;
     },
     [ADD_TO_CART_FAIL] (state, error) {
+        state.loading = false;
+    },
+
+    [REMOVE_FROM_CART_START] (state) {
+        state.loading = true;
+    },
+    [REMOVE_FROM_CART_SUCCESS] (state, checkout) {
+        state.loading = false;
+        state.checkout = checkout;
+    },
+    [REMOVE_FROM_CART_FAIL] (state, error) {
         state.loading = false;
     }
 
