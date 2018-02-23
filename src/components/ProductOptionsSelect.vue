@@ -5,10 +5,10 @@
         @update="variant => { $emit('update', variant) }"
     >
         <div class="product__options" slot-scope="{ options, updateOptions }">
-            <div v-for="option in options" class="option">
+            <div class="option" v-for="option in options">
                 <label>{{ option.name }}</label>
                 <span v-if="option.values.length === 1">
-                    {{ option.selected }}
+                    {{ option.values[0].value }}
                 </span>
                 <select v-else @change="updateOptions" :name="option.name">
                     <option v-for="value in option.values" :value="value.value">

@@ -18,40 +18,30 @@
 
         computed: {
             options() {
-                return this.product.options.map(option => {
-                    return {
-                        name: option.name,
-                        values: option.values,
-                        selected: option.values[0].value
-                    }
-                });
+                return this.product.options;
+            },
+
+            selectedOptions() {
+                let selectedOptions = {};
+                this.options.forEach((option) => {
+                    selectedOptions[option.name] = option.values[0].value
+                })
+                return selectedOptions;
             }
         },
 
         methods: {
             updateOptions(e) {
-                const obj = this.options.find(option => option.name === e.target.name);
-                const objIndex = this.options.findIndex(option => option.name === e.target.name);
-
-                this.options.splice(objIndex, 1, Object.assign(obj, { selected: e.target.value }));
+                this.selectedOptions[e.currentTarget.name] = e.currentTarget.value;
 
                 this.updateVariant();
             },
 
             updateVariant() {
-                let variant = this.product.variants.filter(variant => {
-                    const filteredOptions = this.options.filter((option, index) => {
-                        return variant.selectedOptions[index].value == option.selected
+                const selectedVariant = this.$client.product.helpers.variantForOptions(this.product, this.selectedOptions);
 
-                    });
-                    return filteredOptions.length == this.options.length;
-                })[0];
-
-
-                let newVariant = this.product.variants.findIndex(variantOption => {
-                    return variantOption.id == variant.id
-                });
-                this.$emit('update', newVariant);
+                const selectedVariantIndex = this.product.variants.findIndex(variant => variant.id == selectedVariant.id); 
+                this.$emit('update', selectedVariantIndex);
             }
         },
 

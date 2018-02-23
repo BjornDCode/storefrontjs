@@ -5,19 +5,20 @@
         @update="variant => { $emit('update', variant) }"
     >
         <div class="product__options" slot-scope="{ options, updateOptions }">
-            <div v-for="option in options" class="option">
+            <div class="option" v-for="option in options">
                 <label>{{ option.name }}</label>
                 <span v-if="option.values.length === 1">
-                    {{ option.selected }}
+                    {{ option.values[0].value }}
                 </span>
                 <div v-else>
-                    <div v-for="value in option.values" >
+                    <div v-for="(value, index) in option.values">
                         <label>{{ value.value }}</label>
                         <input 
-                            type="radio" 
-                            :name="option.name" 
+                            type="radio"
+                            :name="option.name"
                             :value="value.value"
                             @change="updateOptions"
+                            :checked="index == 0"
                         >
                     </div>
                 </div>
