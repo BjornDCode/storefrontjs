@@ -9,10 +9,12 @@
                     :alt="image.altText"
                 >
             </div>
-            <div class="product__images--navigation">
-                <a @click.prevent="slider.prev()" href="#0">Left</a>
-                <a @click.prevent="slider.next()" href="#0">Right</a>
-            </div>
+            <slot name="navigation" :slider="slider">
+                <div class="product__images--navigation">
+                    <a @click.prevent="slider.prev()" href="#0">Left</a>
+                    <a @click.prevent="slider.next()" href="#0">Right</a>
+                </div>
+            </slot>
         </div>
     </sf-product-images>
 </template>
