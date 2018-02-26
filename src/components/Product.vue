@@ -26,7 +26,7 @@
 
         data() {
             return {
-                variant: 0            
+                variant: 0
             }
         },
 
