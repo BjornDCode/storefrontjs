@@ -1,34 +1,34 @@
 import Client from 'shopify-buy';
 
-import productsModule from './modules/products/index.js';
-import collectionsModule from './modules/collections/index.js';
-import cartModule from './modules/cart/index.js';
+import productsModule from './modules/products';
+import collectionsModule from './modules/collections';
+import cartModule from './modules/cart';
 
-import ProductsPage from './pages/ProductsPage.vue';
-import ProductPage from './pages/ProductPage.vue';
-import CollectionPage from './pages/CollectionPage.vue';
-import CartPage from './pages/CartPage.vue';
+import ProductsPage from './pages/ProductsPage';
+import ProductPage from './pages/ProductPage';
+import CollectionPage from './pages/CollectionPage';
+import CartPage from './pages/CartPage';
 
-import ProductCard from './components/ProductCard.vue';
-import ProductList from './components/ProductList.vue';
+import ProductCard from './components/ProductCard';
+import ProductList from './components/ProductList';
 
-import Product from './components/Product.vue';
-import ProductDescription from './components/ProductDescription.vue';
-import ProductActions from './components/ProductActions.vue';
+import Product from './components/Product';
+import ProductDescription from './components/ProductDescription';
+import ProductActions from './components/ProductActions';
 
-import ProductOptions from './components/ProductOptions.vue';
-import ProductOptionsRadio from './components/ProductOptionsRadio.vue';
-import ProductOptionsSelect from './components/ProductOptionsSelect.vue';
+import ProductOptions from './components/ProductOptions';
+import ProductOptionsRadio from './components/ProductOptionsRadio';
+import ProductOptionsSelect from './components/ProductOptionsSelect';
 
-import ProductTabs from './components/ProductTabs.vue';
-import ProductTab from './components/ProductTab.vue';
+import ProductTabs from './components/ProductTabs';
+import ProductTab from './components/ProductTab';
 
-import ProductImages from './components/ProductImages.vue';
-import ProductImagesGallery from './components/ProductImagesGallery.vue';
-import ProductImagesSlider from './components/ProductImagesSlider.vue';
+import ProductImages from './components/ProductImages';
+import ProductImagesGallery from './components/ProductImagesGallery';
+import ProductImagesSlider from './components/ProductImagesSlider';
 
-import Cart from './components/Cart.vue';
-import CartLink from './components/CartLink.vue';
+import Cart from './components/Cart';
+import CartLink from './components/CartLink';
 
 let Storefront = {
 
