@@ -7,6 +7,7 @@
                     :key="index"
                     :src="image.src" 
                     :alt="image.altText"
+                    :itemprop="index == 0 ? 'image' : ''"
                 >
             </div>
             <slot name="navigation" :slider="slider">

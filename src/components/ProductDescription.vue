@@ -1,5 +1,5 @@
 <template>
-    <div class="product__description">
+    <div class="product__description" itemprop="description">
         <slot name="header"></slot>
         <slot>
             <div v-html="html"></div>

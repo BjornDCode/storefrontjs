@@ -1,5 +1,8 @@
 <template>
-    <div class="product__price">{{ prefix }}{{ price }}{{ suffix }}</div>
+    <div class="product__price">
+        <meta itemprop="priceCurrency" :content="currencyCode">
+        {{ prefix }}<span itemprop="price">{{ price }}</span>{{ suffix }}
+    </div>
 </template>
 
 <script>
@@ -16,6 +19,10 @@
             suffix: {
                 type: String,
                 required: false
+            },
+            currencyCode: {
+                type: String,
+                required: true
             }
         }
     }

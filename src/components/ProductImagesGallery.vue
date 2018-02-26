@@ -2,7 +2,11 @@
     <sf-product-images :product="product" :mode="mode">
         <div class="product__images" slot-scope="{ images, selectedImage, updateActiveImage }">
             <div class="product__images--selected">
-                <img :src="images[selectedImage].src" :alt="images[selectedImage].altText">
+                <img 
+                    :src="images[selectedImage].src" 
+                    :alt="images[selectedImage].altText"
+                    itemprop="image"
+                >
             </div>
             <div class="product__images--list">
                 <a 

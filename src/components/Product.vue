@@ -5,10 +5,16 @@
             mode="products"
         ></sf-product-images-slider>
         <div class="product__info">
-            <h1>{{ product.title }}</h1>
-            <p>{{ product.vendor }}</p>
-            <sf-product-price :price="price" prefix="$"></sf-product-price>
+            <h1 itemprop="name">{{ product.title }}</h1>
+            <p itemprop="brand">{{ product.vendor }}</p>
             <sf-product-description :html="product.descriptionHtml"></sf-product-description>
+        </div>
+        <div class="product__offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <link 
+                itemprop="availability" 
+                :href="variant.available ? 'http://schema.org/InStock' : 'http://schema.org/OutOfStock'"
+            >
+            <sf-product-price :price="price" prefix="$" currency-code="USD"></sf-product-price>
             <sf-product-options-radio :product="product" v-model="variantIndex"></sf-product-options-radio>
             <sf-product-actions :product="product" :variant="variant"></sf-product-actions>
         </div>
