@@ -16,7 +16,7 @@
                 required: true
             },
             variant: {
-                type: Number,
+                type: Object,
                 required: true
             }
         },
@@ -36,7 +36,7 @@
         methods: {
             addToCart() {
                 const lineItem = [{
-                    variantId: this.product.variants[this.variant].id,
+                    variantId: this.variant.id,
                     quantity: this.quantity
                 }];
 

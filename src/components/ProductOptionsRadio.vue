@@ -1,8 +1,8 @@
 <template>
     <sf-product-options 
         :product="product" 
-        :variant="variant"
-        @update="variant => { $emit('update', variant) }"
+        :variantIndex="variantIndex" 
+        @update="variantIndex => { $emit('update', variantIndex) }"
     >
         <div class="product__options" slot-scope="{ options, updateOptions }">
             <div class="option" v-for="option in options">
@@ -18,7 +18,7 @@
                             :name="option.name"
                             :value="value.value"
                             @change="updateOptions"
-                            :checked="index == 0"
+                            :checked="index == variantIndex"
                         >
                     </div>
                 </div>
@@ -34,14 +34,13 @@
                 type: Object,
                 required: true
             },
-            variant: {
+            variantIndex: {
                 type: Number,
                 required: true
             }
         },
-
         model: {
-            prop: 'variant',
+            prop: 'variantIndex',
             event: 'update'
         }
     }

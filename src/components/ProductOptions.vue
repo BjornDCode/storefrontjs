@@ -5,14 +5,14 @@
                 type: Object,
                 required: true
             },
-            variant: {
+            variantIndex: {
                 type: Number,
                 required: true
             }
         },
 
         model: {
-            prop: 'variant',
+            prop: 'variantIndex',
             event: 'update'
         },
 
