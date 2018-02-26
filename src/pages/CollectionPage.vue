@@ -4,8 +4,8 @@
             <img :src="collection.image.src" :alt="collection.image.altText">
         </div>
         <div class="collection__info">
-            <h1>{{ collection.title }}</h1>
-            <div>{{ collection.descriptionHtml }}</div>
+            <h1 class="collection__info--title">{{ collection.title }}</h1>
+            <div class="collection__info--description">{{ collection.descriptionHtml }}</div>
         </div>
         <div class="collection__products">
             <h2>Products</h2>
