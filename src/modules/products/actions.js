@@ -13,7 +13,11 @@ import {
 
     PRODUCTS_BY_VENDOR_START,
     PRODUCTS_BY_VENDOR_SUCCESS,
-    PRODUCTS_BY_VENDOR_FAIL
+    PRODUCTS_BY_VENDOR_FAIL,
+
+    PRODUCTS_BY_TYPE_START,
+    PRODUCTS_BY_TYPE_SUCCESS,
+    PRODUCTS_BY_TYPE_FAIL
 } from './mutation-types';
 
 
@@ -27,7 +31,7 @@ export default {
             .catch(error => commit(ALL_PRODUCTS_FAIL, error));
     },
 
-    allProductsInTag({ commit }, handle) {
+    allProductsByTag({ commit }, handle) {
         commit(PRODUCTS_BY_TAG_START);
 
         return this._vm.$client.product.fetchQuery({ query: `tag:${handle}` })
@@ -41,6 +45,14 @@ export default {
         return this._vm.$client.product.fetchQuery({ query: `vendor:${handle}` })
             .then(products => commit(PRODUCTS_BY_VENDOR_SUCCESS, products))
             .catch(error => commit(PRODUCTS_BY_VENDOR_FAIL, error))
+    },
+
+    allProductsByType({ commit }, handle) {
+        commit(PRODUCTS_BY_TYPE_START);
+
+        return this._vm.$client.product.fetchQuery({ query: `product_type:${handle}` })
+            .then(products => commit(PRODUCTS_BY_TYPE_SUCCESS, products))
+            .catch(error => commit(PRODUCTS_BY_TYPE_FAIL, error))
     },
 
     activeProduct({commit, getters}, handle) {

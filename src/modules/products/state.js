@@ -3,5 +3,6 @@ export default {
     all: [],
     tag: [],
     vendor: [],
+    type: [],
     active: false
 }

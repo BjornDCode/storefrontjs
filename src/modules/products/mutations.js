@@ -13,7 +13,11 @@ import {
 
     PRODUCTS_BY_VENDOR_START,
     PRODUCTS_BY_VENDOR_SUCCESS,
-    PRODUCTS_BY_VENDOR_FAIL
+    PRODUCTS_BY_VENDOR_FAIL,
+
+    PRODUCTS_BY_TYPE_START,
+    PRODUCTS_BY_TYPE_SUCCESS,
+    PRODUCTS_BY_TYPE_FAIL
 } from './mutation-types';
 
 export default {
@@ -59,6 +63,17 @@ export default {
         state.vendor = products;
     },
     [PRODUCTS_BY_VENDOR_FAIL] (state, error) {
+        state.loading = false;
+    },
+
+    [PRODUCTS_BY_TYPE_START] (state) {
+        state.loading = true;
+    },
+    [PRODUCTS_BY_TYPE_SUCCESS] (state, products) {
+        state.loading = false;
+        state.type = products;
+    },
+    [PRODUCTS_BY_TYPE_FAIL] (state, error) {
         state.loading = false;
     }
     
