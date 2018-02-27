@@ -19,6 +19,12 @@
             lineItems() {
                 return this.$store.getters['cart/lineItems'];
             }
+        },
+
+        methods: {
+            createCheckout() {
+                this.$store.dispatch('cart/createCheckout');
+            },
         }
 
     }
