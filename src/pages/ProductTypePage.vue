@@ -8,7 +8,8 @@
 <script>
     export default {
         created() {
-            this.getProductsByType(this.$route.params.handle);
+            const query = this.$route.params.handle.replace(/-/i, ' ');
+            this.getProductsByType(query);
         },
 
         computed: {
@@ -22,8 +23,8 @@
         },
 
         methods: {
-            getProductsByType(handle) {
-                this.$store.dispatch('products/allProductsByType', handle);
+            getProductsByType(query) {
+                this.$store.dispatch('products/allProductsByType', query);
             }
         }
     }

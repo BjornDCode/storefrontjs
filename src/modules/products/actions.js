@@ -31,26 +31,26 @@ export default {
             .catch(error => commit(ALL_PRODUCTS_FAIL, error));
     },
 
-    allProductsByTag({ commit }, handle) {
+    allProductsByTag({ commit }, query) {
         commit(PRODUCTS_BY_TAG_START);
 
-        return this._vm.$client.product.fetchQuery({ query: `tag:${handle}` })
+        return this._vm.$client.product.fetchQuery({ query: `tag:${query}` })
             .then(products => commit(PRODUCTS_BY_TAG_SUCCESS, products))
             .catch(error => commit(PRODUCTS_BY_TAG_FAIL, error))
     },
 
-    allProductsByVendor({ commit }, handle) {
+    allProductsByVendor({ commit }, query) {
         commit(PRODUCTS_BY_VENDOR_START);
 
-        return this._vm.$client.product.fetchQuery({ query: `vendor:${handle}` })
+        return this._vm.$client.product.fetchQuery({ query: `vendor:${query}` })
             .then(products => commit(PRODUCTS_BY_VENDOR_SUCCESS, products))
             .catch(error => commit(PRODUCTS_BY_VENDOR_FAIL, error))
     },
 
-    allProductsByType({ commit }, handle) {
+    allProductsByType({ commit }, query) {
         commit(PRODUCTS_BY_TYPE_START);
 
-        return this._vm.$client.product.fetchQuery({ query: `product_type:${handle}` })
+        return this._vm.$client.product.fetchQuery({ query: `product_type:${query}` })
             .then(products => commit(PRODUCTS_BY_TYPE_SUCCESS, products))
             .catch(error => commit(PRODUCTS_BY_TYPE_FAIL, error))
     },

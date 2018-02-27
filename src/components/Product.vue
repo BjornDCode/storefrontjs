@@ -6,7 +6,8 @@
         ></sf-product-images-slider>
         <div class="product__info">
             <h1 itemprop="name">{{ product.title }}</h1>
-            <p itemprop="brand">{{ product.vendor }}</p>
+            <router-link itemprop="brand" :to="vendorUrl">{{ product.vendor }}</router-link>
+            <!-- <p itemprop="brand">{{ product.vendor }}</p> -->
             <sf-product-description :html="product.descriptionHtml"></sf-product-description>
         </div>
         <div class="product__offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -42,11 +43,14 @@
             },
             price() {
                 return this.variant.price;
+            },
+            vendorUrl() {
+                return '/vendor/' + this.product.vendor.toLowerCase().replace(/\s+/g, '');
             }
         },
 
         mounted() {
-            console.log(this.variant)
+            console.log(this.product)
         }
     }
 </script>
