@@ -9,7 +9,11 @@ import {
 
     PRODUCTS_BY_TAG_START,
     PRODUCTS_BY_TAG_SUCCESS,
-    PRODUCTS_BY_TAG_FAIL
+    PRODUCTS_BY_TAG_FAIL,
+
+    PRODUCTS_BY_VENDOR_START,
+    PRODUCTS_BY_VENDOR_SUCCESS,
+    PRODUCTS_BY_VENDOR_FAIL
 } from './mutation-types';
 
 export default {
@@ -44,6 +48,17 @@ export default {
         state.tag = products;
     },
     [PRODUCTS_BY_TAG_FAIL] (state, error) {
+        state.loading = false;
+    },
+
+    [PRODUCTS_BY_VENDOR_START] (state) {
+        state.loading = true;
+    },
+    [PRODUCTS_BY_VENDOR_SUCCESS] (state, products) {
+        state.loading = false;
+        state.vendor = products;
+    },
+    [PRODUCTS_BY_VENDOR_FAIL] (state, error) {
         state.loading = false;
     }
     

@@ -9,6 +9,7 @@ import ProductPage from './pages/ProductPage';
 import CollectionPage from './pages/CollectionPage';
 import CartPage from './pages/CartPage';
 import TagPage from './pages/TagPage';
+import VendorPage from './pages/VendorPage';
 
 import ProductCard from './components/ProductCard';
 import ProductList from './components/ProductList';
@@ -69,6 +70,7 @@ let Storefront = {
                 { path: '/product/:handle', component: ProductPage },
                 { path: '/collection/:handle', component: CollectionPage },
                 { path: '/tag/:handle', component: TagPage },
+                { path: '/vendor/:handle', component: VendorPage },
                 { path: '/cart', component: CartPage }
             ];
 
