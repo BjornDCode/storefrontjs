@@ -2,9 +2,14 @@ import {
     ALL_PRODUCTS_START,
     ALL_PRODUCTS_SUCCESS,
     ALL_PRODUCTS_FAIL,
+
     ACTIVE_PRODUCT_START,
     ACTIVE_PRODUCT_SUCCESS,
     ACTIVE_PRODUCT_FAIL,
+
+    PRODUCTS_BY_TAG_START,
+    PRODUCTS_BY_TAG_SUCCESS,
+    PRODUCTS_BY_TAG_FAIL
 } from './mutation-types';
 
 export default {
@@ -29,6 +34,17 @@ export default {
     [ACTIVE_PRODUCT_SUCCESS] (state, product) {
         state.loading = false;
         state.active = product;
+    },
+
+    [PRODUCTS_BY_TAG_START] (state) {
+        state.loading = true;
+    },
+    [PRODUCTS_BY_TAG_SUCCESS] (state, products) {
+        state.loading = false;
+        state.tag = products;
+    },
+    [PRODUCTS_BY_TAG_FAIL] (state, error) {
+        state.loading = false;
     }
     
 }

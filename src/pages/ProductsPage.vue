@@ -18,7 +18,6 @@
                 return this.$store.getters['products/allProductsCount'];
             },
             products() {
-                console.log('PRODUCTS', this.$store.getters['products/allProducts'])
                 return this.$store.getters['products/allProducts'];
             }
         },
