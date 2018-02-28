@@ -3,9 +3,13 @@
         
         <slot name="header"></slot>   
 
-        <slot v-for="product in products" :product="product">
+        <ul>
+            <li v-for="product in products">{{ product.title }}</li>
+        </ul>
+
+        <!-- <slot v-for="product in products" :product="product">
             <sf-product-card  :product="product"></sf-product-card>
-        </slot>
+        </slot> -->
 
         <slot name="footer"></slot>
 
@@ -19,6 +23,10 @@
                 type: Array,
                 required: true
             }
+        },
+
+        mounted() {
+            console.log('list', this.products)
         }
     }
 </script>

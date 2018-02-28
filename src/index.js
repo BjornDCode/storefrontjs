@@ -1,4 +1,9 @@
-import Client from 'shopify-buy';
+// import Client from 'shopify-buy';
+import { ApolloClient } from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import VueApollo from 'vue-apollo'
+
 
 import productsModule from './modules/products';
 import collectionsModule from './modules/collections';
@@ -39,10 +44,35 @@ let Storefront = {
 
     install(Vue, options) {
 
-        Vue.prototype.$client = Client.buildClient({
-            domain: options.domain,
-            storefrontAccessToken: options.storefrontAccessToken
+        const httpLink = new HttpLink({
+            uri: `${options.domain}/api/graphql`,
+            headers: {
+                'X-Shopify-Storefront-Access-Token': options.storefrontAccessToken
+            }
         });
+
+        const apolloClient = new ApolloClient({
+            link: httpLink,
+            cache: new InMemoryCache(),
+            connectToDevTools: true
+        });
+
+        Vue.use(VueApollo)
+
+        const apolloProvider = new VueApollo({
+            defaultClient: apolloClient
+        });
+
+        // Vue.prototype.$testProvider = apolloProvider;
+
+        Vue.provider = function() {
+            return apolloProvider.provide();
+        }
+
+        // Vue.prototype.$client = Client.buildClient({
+        //     domain: options.domain,
+        //     storefrontAccessToken: options.storefrontAccessToken
+        // });
 
         Vue.component('sf-product-card', ProductCard);
         Vue.component('sf-product-list', ProductList);
@@ -81,13 +111,13 @@ let Storefront = {
             options.router.addRoutes(routes);
         }
 
-        options.store.registerModule('shop', {
-            state: {}
-        });
+        // options.store.registerModule('shop', {
+        //     state: {}
+        // });
 
-        options.store.registerModule(['shop', 'products'], productsModule,);
-        options.store.registerModule(['shop', 'collections'], collectionsModule);
-        options.store.registerModule(['shop', 'cart'], cartModule);
+        // options.store.registerModule(['shop', 'products'], productsModule,);
+        // options.store.registerModule(['shop', 'collections'], collectionsModule);
+        // options.store.registerModule(['shop', 'cart'], cartModule);
  
     }
 

@@ -1,30 +1,80 @@
 <template>
     <div>
         <h1>Products</h1>
-        <sf-product-list :products="products"></sf-product-list>
+
+        <div v-if="data">
+            <sf-product-list :products="products"></sf-product-list>
+            <button v-if="pageInfo.hasNextPage" @click="loadMore">Load More</button>
+        </div>
     </div>
 </template>
 
 <script>
+    import gql from 'graphql-tag';
+
+    const GET_PRODUCTS = gql`query Products($cursor: String) {
+        shop {
+            products(first: 10 after: $cursor) {
+                edges {
+                    cursor,
+                    node {
+                        title
+                    }
+                },
+                pageInfo {
+                    hasNextPage,
+                    hasPreviousPage
+                }
+            }
+        }
+    }`
+
     export default {
-        created() {
-            if (!this.productsCount) {
-                this.getAllProducts();
+        data() {
+            return {
+                data: undefined
+            }
+        },
+        apollo: {
+            data: {
+                query: GET_PRODUCTS,
+                update(data) {
+                    console.log(data)
+                    return data;
+                } 
             }
         },
 
         computed: {
-            productsCount() {
-                return this.$store.getters['products/allProductsCount'];
-            },
             products() {
-                return this.$store.getters['products/allProducts'];
+                return this.data.shop.products.edges.map(product => product.node);
+            },
+            pageInfo() {
+                return this.data.shop.products.pageInfo;
             }
         },
 
         methods: {
-            getAllProducts() {
-                this.$store.dispatch('products/allProducts');
+            loadMore() {
+                this.$apollo.queries.data.fetchMore({
+                    variables: {
+                        cursor: this.data.shop.products.edges[this.data.shop.products.edges.length - 1].cursor
+                    },
+                    updateQuery: (previousResult, { fetchMoreResult }) => {
+
+                        return {
+                            __typename: previousResult.shop.__typename,
+                            // shop: Object.assign({}, previousResult.shop, fetchMoreResult.shop)
+                            shop: {
+                                products: {
+                                    __typename: previousResult.shop.products.__typename,
+                                    edges: [...previousResult.shop.products.edges, ...fetchMoreResult.shop.products.edges],
+                                    pageInfo: fetchMoreResult.shop.products.pageInfo
+                                }
+                            }
+                        }
+                    }
+                })
             }
         }
     }
