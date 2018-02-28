@@ -1,5 +1,5 @@
 <template>
-    <sf-product-images :product="product" :mode="mode">
+    <sf-product-images :images="images">
         <div class="product__images" slot-scope="{ images, selectedImage, updateActiveImage }">
             <div class="product__images--selected">
                 <img 
@@ -31,14 +31,10 @@
 <script>
     export default {
         props: {
-            product: {
-                type: Object,
+            images: {
+                type: Array,
                 required: true
             },
-            mode: {
-                type: String,
-                required: false
-            }
         }
     }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <sf-product-images :product="product" :mode="mode">
+    <sf-product-images :images="images">
         <div class="product__images" slot-scope="{ images }">
             <div class="product__images--slider">
                 <img 
@@ -25,13 +25,9 @@
 
     export default {
         props: {
-            product: {
-                type: Object,
+            images: {
+                type: Array,
                 required: true
-            },
-            mode: {
-                type: String,
-                required: false
             },
             options: {
                 type: Object,

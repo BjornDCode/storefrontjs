@@ -13,7 +13,7 @@
                 {{ price }}
             </div>
             <div class="product-card__description">
-                {{ product.description }}
+                {{ product.descriptionHtml }}
             </div>
         </div>
     </div>
@@ -30,11 +30,11 @@
 
         computed: {
             image() {
-                return this.product.images[0];
+                return this.product.images.edges[0].node;
             },
 
             price() {
-                return this.product.variants[0].price;
+                return this.product.variants.edges[0].node.price;
             }
         }
     }

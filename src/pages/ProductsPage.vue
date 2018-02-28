@@ -18,7 +18,24 @@
                 edges {
                     cursor,
                     node {
-                        title
+                        title,
+                        handle,
+                        descriptionHtml,
+                        images(first: 1) {
+                            edges {
+                                node {
+                                    src,
+                                    altText
+                                }
+                            }
+                        },
+                        variants(first: 1) {
+                            edges {
+                                node {
+                                    price
+                                }
+                            }
+                        }
                     }
                 },
                 pageInfo {
@@ -38,10 +55,7 @@
         apollo: {
             data: {
                 query: GET_PRODUCTS,
-                update(data) {
-                    console.log(data)
-                    return data;
-                } 
+                update: data => data
             }
         },
 

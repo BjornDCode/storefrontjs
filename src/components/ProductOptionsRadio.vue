@@ -1,6 +1,6 @@
 <template>
     <sf-product-options 
-        :product="product" 
+        :product="product"
         :variantIndex="variantIndex" 
         @update="variantIndex => { $emit('update', variantIndex) }"
     >
@@ -8,15 +8,15 @@
             <div class="option" v-for="option in options">
                 <label>{{ option.name }}</label>
                 <span v-if="option.values.length === 1">
-                    {{ option.values[0].value }}
+                    {{ option.values[0] }}
                 </span>
                 <div v-else>
                     <div v-for="(value, index) in option.values">
-                        <label>{{ value.value }}</label>
+                        <label>{{ value }}</label>
                         <input 
                             type="radio"
                             :name="option.name"
-                            :value="value.value"
+                            :value="value"
                             @change="updateOptions"
                             :checked="index == variantIndex"
                         >

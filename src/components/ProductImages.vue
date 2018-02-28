@@ -1,23 +1,9 @@
 <script>
     export default {
         props: {
-            product: {
-                type: Object,
+            images: {
+                type: Array,
                 required: true
-            },
-            mode: {
-                type: String,
-                required: false
-            }
-        },
-
-        computed: {
-            images() {
-                if (this.mode == "variants") {
-                    return this.product.variants.map(variant => variant.image);
-                }
-
-                return this.product.images;
             }
         },
 

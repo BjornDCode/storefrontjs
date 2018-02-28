@@ -3,13 +3,9 @@
         
         <slot name="header"></slot>   
 
-        <ul>
-            <li v-for="product in products">{{ product.title }}</li>
-        </ul>
-
-        <!-- <slot v-for="product in products" :product="product">
+        <slot v-for="product in products" :product="product">
             <sf-product-card  :product="product"></sf-product-card>
-        </slot> -->
+        </slot>
 
         <slot name="footer"></slot>
 
