@@ -1,9 +1,13 @@
 <template>
-    <div class="cart" v-if="checkout">
+    <div class="cart">
         <slot name="header"></slot>
 
-        <div v-if="lineItems.length">
-            <div class="cart--table">
+        <p>CART</p>
+
+        <p>{{ checkout }}</p>
+
+        <!-- <div v-if="lineItems.length"> -->
+            <!-- <div class="cart--table">
                 <table>
                     <thead>
                         <tr>
@@ -17,9 +21,7 @@
                     <tbody>
                         <tr v-for="(lineItem, index) in lineItems">
                             <td>
-                                <!-- <a :href="'/product/' + lineItem.variant.product.handle"> -->
-                                    {{ lineItem.title }}
-                                <!-- </a> -->
+                                {{ lineItem.title }}
                             </td>
                             <td>
                                 <span>
@@ -46,23 +48,23 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </div> -->
 
-            <div class="cart__summary">
+            <!-- <div class="cart__summary">
                 <div class="cart__summary--total">
                     Subtotal: <span>{{ checkout.subtotalPrice }}</span>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="cart__actions">
+            <!-- <div class="cart__actions">
                 <a :href="checkout.webUrl" class="cart__actions--checkout">
                     Checkout
                 </a>
-            </div>
-        </div>
-        <div v-else>
+            </div> -->
+        <!-- </div> -->
+        <!-- <div v-else>
             <p>The cart is empty.</p>
-        </div>
+        </div> -->
         
 
         <slot name="footer"></slot>
@@ -70,49 +72,58 @@
 </template>
 
 <script>
-    import { debounce } from 'lodash';
-
     export default {
-        computed: {
-            checkout() {
-                return this.$store.getters['cart/checkout'];
-            },
-            lineItems() {
-                return this.$store.getters['cart/lineItems'];
-            },
-            loading() {
-                return this.$store.getters['cart/isLoading'];
+        props: {
+            checkout: {
+                type: Object,
+                required: true
             }
-        },
-
-        created() {
-            if (!this.checkout) {
-                this.createCheckout();
-            }
-        },
-
-        mounted() {
-            if (this.$route.query.hasOwnProperty('clear')) {
-                this.createCheckout();
-            }
-            console.log(this.checkout)
-        },
-
-        methods: {
-            createCheckout() {
-                this.$store.dispatch('cart/createCheckout');
-            },
-            removeFromCart(e) {
-                this.$store.dispatch('cart/removeLineItem', [e.currentTarget.value]);
-            },
-            updateQuantity: debounce(function(e) {
-                const lineItem = [{
-                    id: e.target.dataset.id,
-                    quantity: Number(e.target.value)
-                }];
-
-                this.$store.dispatch('cart/updateQuantity', lineItem)
-            }, 500)
         }
     }
+
+
+    // import { debounce } from 'lodash';
+
+        // computed: {
+        //     checkout() {
+        //         return this.$store.getters['cart/checkout'];
+        //     },
+        //     lineItems() {
+        //         return this.$store.getters['cart/lineItems'];
+        //     },
+        //     loading() {
+        //         return this.$store.getters['cart/isLoading'];
+        //     }
+        // },
+
+        // created() {
+        //     if (!this.checkout) {
+        //         this.createCheckout();
+        //     }
+        // },
+
+        // mounted() {
+        //     if (this.$route.query.hasOwnProperty('clear')) {
+        //         this.createCheckout();
+        //     }
+        //     console.log(this.checkout)
+        // },
+
+        // methods: {
+        //     createCheckout() {
+        //         this.$store.dispatch('cart/createCheckout');
+        //     },
+        //     removeFromCart(e) {
+        //         this.$store.dispatch('cart/removeLineItem', [e.currentTarget.value]);
+        //     },
+        //     updateQuantity: debounce(function(e) {
+        //         const lineItem = [{
+        //             id: e.target.dataset.id,
+        //             quantity: Number(e.target.value)
+        //         }];
+
+        //         this.$store.dispatch('cart/updateQuantity', lineItem)
+        //     }, 500)
+        // }
+    // }
 </script>
