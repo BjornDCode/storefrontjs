@@ -4,6 +4,9 @@ export default gql`
     fragment CheckoutFragment on Checkout {
         id
         webUrl
+        subtotalPrice
+        totalTax
+        totalPrice
         lineItems(first: 250) {
             edges {
                 node {

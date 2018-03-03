@@ -53,18 +53,17 @@
                 </table>
             </div>
 
-
-            <!-- <div class="cart__summary">
+            <div class="cart__summary">
                 <div class="cart__summary--total">
-                    Subtotal: <span>{{ checkout.subtotalPrice }}</span>
+                    Subtotal: <span>{{ subTotal }}</span>
                 </div>
-            </div> -->
+            </div>
 
-            <!-- <div class="cart__actions">
+            <div class="cart__actions">
                 <a :href="checkout.webUrl" class="cart__actions--checkout">
                     Checkout
                 </a>
-            </div> -->
+            </div>
         </div>
         <div v-else>
             <p>The cart is empty.</p>
@@ -87,7 +86,8 @@
 
         data() {
             return {
-                lineItems: this.checkout.lineItems.edges.map(lineItem => lineItem.node)
+                lineItems: this.checkout.lineItems.edges.map(lineItem => lineItem.node),
+                subTotal: this.checkout.subtotalPrice
             }
         },
 
@@ -117,6 +117,7 @@
                     },
                     update: (store, { data }) => {
                         this.lineItems = data.checkoutLineItemsUpdate.checkout.lineItems.edges.map(lineItem => lineItem.node);
+                        this.subTotal = data.checkoutLineItemsUpdate.checkout.subtotalPrice;
                     }
                 });
             }
