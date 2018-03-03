@@ -4,10 +4,8 @@
 
         <p>CART</p>
 
-        <p>{{ checkout }}</p>
-
-        <!-- <div v-if="lineItems.length"> -->
-            <!-- <div class="cart--table">
+        <div v-if="lineItems.length">
+            <div class="cart--table">
                 <table>
                     <thead>
                         <tr>
@@ -21,7 +19,9 @@
                     <tbody>
                         <tr v-for="(lineItem, index) in lineItems">
                             <td>
-                                {{ lineItem.title }}
+                                <router-link :to="'/product/' + lineItem.variant.product.handle">
+                                    {{ lineItem.title }}
+                                </router-link>
                             </td>
                             <td>
                                 <span>
@@ -34,7 +34,6 @@
                                     type="number" 
                                     :data-id="lineItem.id"
                                     :value="lineItem.quantity"
-                                    :disabled="loading" 
                                 >
                             </td>
                             <td>
@@ -48,7 +47,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </div> -->
+            </div>
 
             <!-- <div class="cart__summary">
                 <div class="cart__summary--total">
@@ -61,10 +60,10 @@
                     Checkout
                 </a>
             </div> -->
-        <!-- </div> -->
-        <!-- <div v-else>
+        </div>
+        <div v-else>
             <p>The cart is empty.</p>
-        </div> -->
+        </div>
         
 
         <slot name="footer"></slot>
@@ -72,58 +71,61 @@
 </template>
 
 <script>
+    import { UPDATE_LINE_ITEMS } from '../graphql/mutations';
+
     export default {
         props: {
             checkout: {
                 type: Object,
                 required: true
             }
+        },
+
+        computed: {
+            lineItems: {
+                get() {
+                    return this.checkout.lineItems.edges.map(lineItem => lineItem.node);
+                },
+                set(lineItems) {
+                    return lineItems;
+                }
+            },
+            // loading: {
+            //     get() {
+            //         return false;
+            //     },
+            //     set(loadingState) {
+            //         return loadingState;
+            //     }
+            // }
+        },
+
+        mounted() {
+            console.log('checkout', this.checkout)
+        },
+
+        methods: {
+
+            updateQuantity(e) {
+                this.$apollo.mutate({
+                    mutation: UPDATE_LINE_ITEMS,
+                    variables: {
+                        checkoutId: this.checkout.id,
+                        lineItems: [{
+                            id: e.target.dataset.id,
+                            quantity: Number(e.target.value)
+                        }]
+                    },
+                    update: (store, { data }) => {
+                        this.lineItems = data.checkoutLineItemsUpdate.checkout.lineItems.edges.map(lineItem => lineItem.node);
+                    }
+                });
+            },
+
+            removeFromCart() {
+                console.log('removeFromCart');
+            }
+
         }
     }
-
-
-    // import { debounce } from 'lodash';
-
-        // computed: {
-        //     checkout() {
-        //         return this.$store.getters['cart/checkout'];
-        //     },
-        //     lineItems() {
-        //         return this.$store.getters['cart/lineItems'];
-        //     },
-        //     loading() {
-        //         return this.$store.getters['cart/isLoading'];
-        //     }
-        // },
-
-        // created() {
-        //     if (!this.checkout) {
-        //         this.createCheckout();
-        //     }
-        // },
-
-        // mounted() {
-        //     if (this.$route.query.hasOwnProperty('clear')) {
-        //         this.createCheckout();
-        //     }
-        //     console.log(this.checkout)
-        // },
-
-        // methods: {
-        //     createCheckout() {
-        //         this.$store.dispatch('cart/createCheckout');
-        //     },
-        //     removeFromCart(e) {
-        //         this.$store.dispatch('cart/removeLineItem', [e.currentTarget.value]);
-        //     },
-        //     updateQuantity: debounce(function(e) {
-        //         const lineItem = [{
-        //             id: e.target.dataset.id,
-        //             quantity: Number(e.target.value)
-        //         }];
-
-        //         this.$store.dispatch('cart/updateQuantity', lineItem)
-        //     }, 500)
-        // }
-    // }
 </script>

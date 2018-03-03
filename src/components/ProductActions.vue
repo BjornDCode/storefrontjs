@@ -1,6 +1,5 @@
 <template>
     <div class="product__actions">
-        {{ checkout }}
         <button @click="addToCart">Add To Cart</button>
         <div class="product__actions--quantity">
             <label for="quantity">Quantity</label>
@@ -46,26 +45,5 @@
                 })
             }
         }
-
-        // computed: {
-        //     cartLoading() {
-        //         return this.$store.getters['cart/isLoading'];
-        //     }
-        // },
-
-        // methods: {
-        //     addToCart() {
-        //         const lineItem = [{
-        //             variantId: this.variant.id,
-        //             quantity: this.quantity
-        //         }];
-
-        //         this.addProductToCart(lineItem);
-        //     },
-
-        //     addProductToCart(lineItem) {
-        //         this.$store.dispatch('cart/addToCart', lineItem);
-        //     }
-        // }
     }
 </script>

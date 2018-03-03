@@ -7,6 +7,7 @@ export default gql`
         lineItems(first: 250) {
             edges {
                 node {
+                    id
                     title
                     quantity
                     variant {
