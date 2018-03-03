@@ -15,7 +15,7 @@
             >
             <sf-product-price :price="price" prefix="$" currency-code="USD"></sf-product-price>
             <sf-product-options-radio :product="product" v-model="variantIndex"></sf-product-options-radio>
-            <!-- <sf-product-actions :product="product" :variant="variant"></sf-product-actions> -->
+            <sf-product-actions :variant-id="variant.id"></sf-product-actions>
         </div>
     </div>
 </template>
@@ -44,7 +44,6 @@
                 return this.product.variants.edges[this.variantIndex].node;
             },
             price() {
-                console.log('activeVariant', this.variant)
                 return this.variant.price;
             },
             images() {

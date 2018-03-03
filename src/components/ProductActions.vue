@@ -1,22 +1,24 @@
 <template>
     <div class="product__actions">
-        <button @click="addToCart" :disable="cartLoading">Add To Cart</button>
+        {{ checkout }}
+        <button @click="addToCart">Add To Cart</button>
         <div class="product__actions--quantity">
             <label for="quantity">Quantity</label>
-            <input type="number" id="quantity" v-model.number="quantity" :disabled="cartLoading">
+            <input type="number" id="quantity" v-model.number="quantity">
         </div>
     </div>
 </template>
 
 <script>
+    import cart from '../mixins/cart';
+    import { ADD_LINE_ITEMS } from '../graphql/mutations';
+
     export default {
+        mixins: [cart],
+
         props: {
-            product: {
-                type: Object,
-                required: true
-            },
-            variant: {
-                type: Object,
+            variantId: {
+                type: String,
                 required: true
             }
         },
@@ -27,25 +29,43 @@
             }
         },
 
-        computed: {
-            cartLoading() {
-                return this.$store.getters['cart/isLoading'];
-            }
-        },
-
         methods: {
             addToCart() {
-                const lineItem = [{
-                    variantId: this.variant.id,
-                    quantity: this.quantity
-                }];
-
-                this.addProductToCart(lineItem);
-            },
-
-            addProductToCart(lineItem) {
-                this.$store.dispatch('cart/addToCart', lineItem);
+                this.$apollo.mutate({
+                    mutation: ADD_LINE_ITEMS,
+                    variables: {
+                        lineItems: [{
+                            quantity: this.quantity,
+                            variantId: this.variantId
+                        }],
+                        checkoutId: this.checkout.id
+                    },
+                    update: (store, { data }) => {
+                        this.checkout = data.checkoutLineItemsAdd.checkout;
+                    }
+                })
             }
         }
+
+        // computed: {
+        //     cartLoading() {
+        //         return this.$store.getters['cart/isLoading'];
+        //     }
+        // },
+
+        // methods: {
+        //     addToCart() {
+        //         const lineItem = [{
+        //             variantId: this.variant.id,
+        //             quantity: this.quantity
+        //         }];
+
+        //         this.addProductToCart(lineItem);
+        //     },
+
+        //     addProductToCart(lineItem) {
+        //         this.$store.dispatch('cart/addToCart', lineItem);
+        //     }
+        // }
     }
 </script>

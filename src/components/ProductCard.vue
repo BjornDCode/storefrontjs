@@ -4,11 +4,11 @@
             <img :src="image.src" :alt="image.altText">
         </div>
         <div class="product-card__info">
-            <a :href="'/product/' + product.handle">
+            <router-link :to="productUrl">
                 <h2 class="product-card__title">
                     {{ product.title }}
                 </h2>
-            </a>
+            </router-link>
             <div class="product-card__price">
                 {{ price }}
             </div>
@@ -35,6 +35,10 @@
 
             price() {
                 return this.product.variants.edges[0].node.price;
+            },
+
+            productUrl() {
+                return '/product/' + this.product.handle;
             }
         }
     }
