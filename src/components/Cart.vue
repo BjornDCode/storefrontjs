@@ -40,7 +40,11 @@
                                 <span v-text="lineItem.variant.price * lineItem.quantity"></span>
                             </td>
                             <td>
-                                <button @click="removeFromCart" :value="lineItem.id">
+                                <button 
+                                    @click="removeFromCart" 
+                                    :value="lineItem.id"
+                                    :data-id="lineItem.id"
+                                >
                                     &times;
                                 </button>
                             </td>
@@ -48,6 +52,7 @@
                     </tbody>
                 </table>
             </div>
+
 
             <!-- <div class="cart__summary">
                 <div class="cart__summary--total">
@@ -64,7 +69,6 @@
         <div v-else>
             <p>The cart is empty.</p>
         </div>
-        
 
         <slot name="footer"></slot>
     </div>
@@ -81,23 +85,10 @@
             }
         },
 
-        computed: {
-            lineItems: {
-                get() {
-                    return this.checkout.lineItems.edges.map(lineItem => lineItem.node);
-                },
-                set(lineItems) {
-                    return lineItems;
-                }
-            },
-            // loading: {
-            //     get() {
-            //         return false;
-            //     },
-            //     set(loadingState) {
-            //         return loadingState;
-            //     }
-            // }
+        data() {
+            return {
+                lineItems: this.checkout.lineItems.edges.map(lineItem => lineItem.node)
+            }
         },
 
         mounted() {
@@ -107,23 +98,27 @@
         methods: {
 
             updateQuantity(e) {
+                this.updateLineItems(e, Number(e.target.value));
+            },
+
+            removeFromCart(e) {
+                this.updateLineItems(e, 0);
+            },
+
+            updateLineItems(event, quantity) {
                 this.$apollo.mutate({
                     mutation: UPDATE_LINE_ITEMS,
                     variables: {
                         checkoutId: this.checkout.id,
                         lineItems: [{
-                            id: e.target.dataset.id,
-                            quantity: Number(e.target.value)
+                            id: event.target.dataset.id,
+                            quantity
                         }]
                     },
                     update: (store, { data }) => {
                         this.lineItems = data.checkoutLineItemsUpdate.checkout.lineItems.edges.map(lineItem => lineItem.node);
                     }
                 });
-            },
-
-            removeFromCart() {
-                console.log('removeFromCart');
             }
 
         }
