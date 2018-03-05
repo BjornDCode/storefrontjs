@@ -10,41 +10,7 @@
 </template>
 
 <script>
-    import gql from 'graphql-tag';
-
-    const GET_PRODUCTS = gql`query Products($cursor: String) {
-        shop {
-            products(first: 10 after: $cursor) {
-                edges {
-                    cursor,
-                    node {
-                        title,
-                        handle,
-                        descriptionHtml,
-                        images(first: 1) {
-                            edges {
-                                node {
-                                    src,
-                                    altText
-                                }
-                            }
-                        },
-                        variants(first: 1) {
-                            edges {
-                                node {
-                                    price
-                                }
-                            }
-                        }
-                    }
-                },
-                pageInfo {
-                    hasNextPage,
-                    hasPreviousPage
-                }
-            }
-        }
-    }`
+    import { GET_PRODUCTS } from '../graphql/queries';
 
     export default {
         data() {
@@ -78,7 +44,6 @@
 
                         return {
                             __typename: previousResult.shop.__typename,
-                            // shop: Object.assign({}, previousResult.shop, fetchMoreResult.shop)
                             shop: {
                                 products: {
                                     __typename: previousResult.shop.products.__typename,
