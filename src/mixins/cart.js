@@ -1,5 +1,5 @@
-import { GET_CHECKOUT_ID, UPDATE_CHECKOUT_ID, GET_CHECKOUT } from '../graphql/queries';
-import { CREATE_CHECKOUT } from '../graphql/mutations';
+import { GET_CHECKOUT_ID, GET_CHECKOUT } from '../graphql/queries';
+import { CREATE_CHECKOUT, UPDATE_CHECKOUT_ID } from '../graphql/mutations';
 
 
 export default {
