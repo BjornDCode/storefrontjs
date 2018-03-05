@@ -22,7 +22,7 @@ export default gql`
                                 edges {
                                     node {
                                         altText
-                                        originalSrc
+                                        src 
                                     }
                                 }
                             }

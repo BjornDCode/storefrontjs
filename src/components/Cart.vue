@@ -9,6 +9,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Product Name</th>
                             <th>Price</th>
                             <th>Quantity</th>
@@ -18,6 +19,12 @@
                     </thead>
                     <tbody>
                         <tr v-for="(lineItem, index) in lineItems">
+                            <td>
+                                <img 
+                                    :src="lineItem.variant.product.images.edges[0].node.src" 
+                                    :alt="lineItem.variant.product.images.edges[0].node.altText"
+                                >
+                            </td>
                             <td>
                                 <router-link :to="'/product/' + lineItem.variant.product.handle">
                                     {{ lineItem.title }}
@@ -60,7 +67,7 @@
             </div>
 
             <div class="cart__actions">
-                <a :href="checkout.webUrl" class="cart__actions--checkout">
+                <a :href="checkout.webUrl" class="cart__actions--checkout" target="_blank">
                     Checkout
                 </a>
             </div>
@@ -82,6 +89,10 @@
                 type: Object,
                 required: true
             }
+        },
+
+        mounted() {
+            console.log(this.checkout)
         },
 
         data() {
