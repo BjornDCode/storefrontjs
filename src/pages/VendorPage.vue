@@ -1,30 +1,43 @@
 <template>
     <div>
         <h1>{{ vendorName }}</h1>
-        <sf-product-list :products="products"></sf-product-list>
+        <div v-if="data">
+            <sf-product-list :products="products"></sf-product-list>
+        </div>
     </div>
 </template>
 
 <script>
-    export default {
-        created() {
-            const query = this.$route.params.handle.replace(/-/i, ' ');
-            this.getProductsByVendor(query);
-        },
+    import { GET_PRODUCTS } from '../graphql/queries';
 
-        computed: {
-            vendorName() {
-                const handle = this.$route.params.handle;
-                return handle.charAt(0).toUpperCase() + handle.slice(1);
-            },
-            products(){
-                return this.$store.getters['products/allProductsByVendor'];
+    export default {
+        data() {
+            return {
+                data: undefined
             }
         },
 
-        methods: {
-            getProductsByVendor(query) {
-                this.$store.dispatch('products/allProductsByVendor', query);
+        apollo: {
+            data: {
+                query: GET_PRODUCTS,
+                variables() {
+                    return {
+                        query: `vendor:${this.handle}`
+                    }
+                },
+                update: data => data
+            }
+        },
+
+        computed: {
+            handle() {
+                return this.$route.params.handle;
+            },
+            vendorName() {
+                return this.handle.charAt(0).toUpperCase() + this.handle.slice(1);
+            },
+            products() {
+                return this.data.shop.products.edges.map(product => product.node);
             }
         }
     }
