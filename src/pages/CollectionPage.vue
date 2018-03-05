@@ -9,30 +9,63 @@
         </div>
         <div class="collection__products">
             <h2>Products</h2>
-            <sf-product-list :products="collection.products"></sf-product-list>
+            <sf-product-list :products="products"></sf-product-list>
         </div>
     </div>
 </template>
 
 
 <script>
-    export default {
-        
-        created() {
-            this.getActiveCollection(this.$route.params.handle);
-        },
+    import { GET_COLLECTION } from '../graphql/queries';
 
-        computed: {
-            collection() {
-                return this.$store.getters['collections/activeCollection'];
+    export default {
+        data() {
+            return {
+                collection: undefined
             }
         },
 
-        methods: {
-            getActiveCollection(handle) {
-                this.$store.dispatch('collections/activeCollection', handle);
+        apollo: {
+            collection: {
+                query: GET_COLLECTION,
+                variables() {
+                    return {
+                        handle: this.handle
+                    }
+                },
+                update: data => data.shop.collectionByHandle
+            }
+        },
+
+        computed: {
+            handle() {
+                return this.$route.params.handle;
+            },
+
+            products() {
+                return this.collection.products.edges.map(product => product.node);
             }
         }
 
     }
+
+    // export default {
+        
+    //     created() {
+    //         this.getActiveCollection(this.$route.params.handle);
+    //     },
+
+    //     computed: {
+    //         collection() {
+    //             return this.$store.getters['collections/activeCollection'];
+    //         }
+    //     },
+
+    //     methods: {
+    //         getActiveCollection(handle) {
+    //             this.$store.dispatch('collections/activeCollection', handle);
+    //         }
+    //     }
+
+    // }
 </script>
