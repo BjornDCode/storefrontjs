@@ -31,9 +31,7 @@
                                 </router-link>
                             </td>
                             <td>
-                                <span>
-                                    {{ lineItem.variant.price }}
-                                </span>
+                                <sf-price :price="lineItem.variant.price"></sf-price>
                             </td>
                             <td>
                                 <input 
@@ -44,7 +42,7 @@
                                 >
                             </td>
                             <td>
-                                <span v-text="lineItem.variant.price * lineItem.quantity"></span>
+                                <sf-price :price="lineItem.variant.price * lineItem.quantity"></sf-price>
                             </td>
                             <td>
                                 <button 
@@ -62,7 +60,7 @@
 
             <div class="cart__summary">
                 <div class="cart__summary--total">
-                    Subtotal: <span>{{ subTotal }}</span>
+                    Subtotal: <sf-price :price="subTotal"></sf-price>
                 </div>
             </div>
 
@@ -89,10 +87,6 @@
                 type: Object,
                 required: true
             }
-        },
-
-        mounted() {
-            console.log(this.checkout)
         },
 
         data() {

@@ -10,7 +10,7 @@
                 </h2>
             </router-link>
             <div class="product-card__price">
-                {{ price }}
+                <sf-price :price="price"></sf-price>
             </div>
             <div class="product-card__description">
                 {{ product.descriptionHtml }}

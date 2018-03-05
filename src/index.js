@@ -41,6 +41,8 @@ import ProductImagesSlider from './components/ProductImagesSlider';
 import Cart from './components/Cart';
 import CartLink from './components/CartLink';
 
+import Price from './components/Price';
+
 let Storefront = {
 
     install(Vue, options) {
@@ -120,6 +122,8 @@ let Storefront = {
 
         Vue.component('sf-cart', Cart);
         Vue.component('sf-cart-link', CartLink);
+
+        Vue.component('sf-price', Price);
 
         if (options.router) {
             const routes = [

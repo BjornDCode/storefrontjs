@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        props: {
+        props: { 
             price: {
                 type: String,
                 required: true
