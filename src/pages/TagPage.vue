@@ -1,30 +1,43 @@
 <template>
     <div>
         <h1>{{ tagName }}</h1>
-        <sf-product-list :products="products"></sf-product-list>
+        <div v-if="data">
+            <sf-product-list :products="products"></sf-product-list>
+        </div>
     </div>
 </template>
 
 <script>
-    export default {
-        created() {
-            const query = this.$route.params.handle.replace(/-/i, ' ');
-            this.getProductsByTag(query);
-        },
+    import { GET_PRODUCTS } from '../graphql/queries';
 
-        computed: {
-            tagName() {
-                const handle = this.$route.params.handle;
-                return handle.charAt(0).toUpperCase() + handle.slice(1);
-            },
-            products(){
-                return this.$store.getters['products/allProductsByTag'];
+    export default {
+        data() {
+            return {
+                data: undefined
             }
         },
 
-        methods: {
-            getProductsByTag(query) {
-                this.$store.dispatch('products/allProductsByTag', query);
+        apollo: {
+            data: {
+                query: GET_PRODUCTS,
+                variables() {
+                    return {
+                        query: `tag:${this.handle}`
+                    }
+                },
+                update: data => data
+            }
+        },
+
+        computed: {
+            handle() {
+                return this.$route.params.handle;
+            },
+            tagName() {
+                return this.handle.charAt(0).toUpperCase() + this.handle.slice(1);
+            },
+            products() {
+                return this.data.shop.products.edges.map(product => product.node);
             }
         }
     }

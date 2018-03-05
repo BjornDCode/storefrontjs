@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 
 export default gql`
-    query Products($cursor: String) {
+    query Products($cursor: String, $query: String) {
         shop {
-            products(first: 10 after: $cursor) {
+            products(first: 10 after: $cursor query: $query) {
                 edges {
                     cursor,
                     node {
