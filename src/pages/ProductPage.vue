@@ -3,70 +3,30 @@
 </template>
 
 <script>
-    import gql from 'graphql-tag';
-
-    const GET_PRODUCT = gql `
-        query Product($handle: String!){
-            shop {
-                productByHandle(handle: $handle) {
-                    id,
-                    title,
-                    vendor,
-                    descriptionHtml,
-                    images(first: 20) {
-                        edges {
-                            node {
-                                src,
-                                altText
-                            }
-                        }
-                    },
-                    options {
-                        name,
-                        values
-                    },
-                    variants(first: 250) {
-                        edges {
-                            node {
-                                id,
-                                title,
-                                price,
-                                availableForSale,
-                                selectedOptions {
-                                    name, 
-                                    value
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    `;
+    import { GET_PRODUCT } from '../graphql/queries';
 
     export default {
         data() {
             return {
-                data: undefined
+                product: undefined
             }
         },
 
         apollo: {
-            data: {
+            product: {
                 query: GET_PRODUCT,
                 variables() {
                     return {
-                        handle: this.$route.params.handle   
+                        handle: this.handle  
                     }
                 },
-                update: data => data
+                update: data => data.shop.productByHandle
             }
         },
 
         computed: {
-            product() {
-                if (!this.data) return;
-                return this.data.shop.productByHandle;
+            handle() {
+                return this.$route.params.handle;
             }
         }
     }

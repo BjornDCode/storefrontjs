@@ -12,34 +12,34 @@ export default gql `
                     altText
                 }
                 products(first: 10 after: $cursor) {
-                edges {
-                    cursor,
-                    node {
-                        title,
-                        handle,
-                        descriptionHtml,
-                        images(first: 1) {
-                            edges {
-                                node {
-                                    src,
-                                    altText
+                    edges {
+                        cursor,
+                        node {
+                            title,
+                            handle,
+                            descriptionHtml,
+                            images(first: 1) {
+                                edges {
+                                    node {
+                                        src,
+                                        altText
+                                    }
                                 }
-                            }
-                        },
-                        variants(first: 1) {
-                            edges {
-                                node {
-                                    price
+                            },
+                            variants(first: 1) {
+                                edges {
+                                    node {
+                                        price
+                                    }
                                 }
                             }
                         }
+                    },
+                    pageInfo {
+                        hasNextPage,
+                        hasPreviousPage
                     }
-                },
-                pageInfo {
-                    hasNextPage,
-                    hasPreviousPage
                 }
-            }
             }
         }
     }
