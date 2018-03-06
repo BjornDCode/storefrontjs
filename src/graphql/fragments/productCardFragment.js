@@ -7,7 +7,6 @@ export default gql`
             node {
                 title,
                 handle,
-                descriptionHtml,
                 images(first: 1) {
                     edges {
                         node {
