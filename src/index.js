@@ -47,6 +47,8 @@ let Storefront = {
 
     install(Vue, options) {
 
+        Vue.prototype.$event = new Vue();
+
         const cache = new InMemoryCache();
 
         const httpLink = new HttpLink({

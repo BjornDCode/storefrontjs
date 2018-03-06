@@ -41,6 +41,7 @@
                     },
                     update: (store, { data }) => {
                         this.checkout = data.checkoutLineItemsAdd.checkout;
+                        this.$event.$emit('lineItemsCountUpdate', data.checkoutLineItemsAdd.checkout.lineItems.edges.length)
                     }
                 })
             }

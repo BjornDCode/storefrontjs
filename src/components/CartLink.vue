@@ -1,31 +1,13 @@
 <template>
     <router-link v-if="checkout" to="/cart">
-        <slot :count="lineItems.length">Cart ({{lineItems.length}})</slot>
+        <slot :count="lineItemsCount">Cart ({{lineItemsCount}})</slot>
     </router-link>
 </template>
 
 <script>
+    import cart from '../mixins/cart';
+
     export default {
-        created() {
-            if (!this.checkout) {
-                this.createCheckout();
-            }
-        },
-
-        computed: {
-            checkout() {
-                return this.$store.getters['cart/checkout'];
-            },
-            lineItems() {
-                return this.$store.getters['cart/lineItems'];
-            }
-        },
-
-        methods: {
-            createCheckout() {
-                this.$store.dispatch('cart/createCheckout');
-            },
-        }
-
+        mixins: [cart]
     }
 </script>

@@ -96,10 +96,6 @@
             }
         },
 
-        mounted() {
-            console.log('checkout', this.checkout)
-        },
-
         methods: {
 
             updateQuantity(e) {
@@ -123,6 +119,7 @@
                     update: (store, { data }) => {
                         this.lineItems = data.checkoutLineItemsUpdate.checkout.lineItems.edges.map(lineItem => lineItem.node);
                         this.subTotal = data.checkoutLineItemsUpdate.checkout.subtotalPrice;
+                        this.$event.$emit('lineItemsCountUpdate', data.checkoutLineItemsUpdate.checkout.lineItems.edges.length)
                     }
                 });
             }
