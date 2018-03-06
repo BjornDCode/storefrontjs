@@ -27,6 +27,12 @@
                             <tr v-for="(lineItem, index) in lineItems">
                                 <td>
                                     <img 
+                                        v-if="lineItem.variant.image"
+                                        :src="lineItem.variant.image.src"
+                                        :alt="lineItem.variant.image.altText"
+                                    >
+                                    <img 
+                                        v-else
                                         :src="lineItem.variant.product.images.edges[0].node.src" 
                                         :alt="lineItem.variant.product.images.edges[0].node.altText"
                                     >
@@ -86,9 +92,6 @@
             <slot name="actions">
                 <div class="cart__actions">
                     <button @click="checkoutStart">Checkout</button>
-<!--                     <a :href="checkout.webUrl" class="cart__actions--checkout" target="_blank">
-                        Checkout
-                    </a> -->
                 </div>
             </slot>
         </div>

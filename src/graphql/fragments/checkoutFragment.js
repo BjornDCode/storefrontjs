@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import ImageFragment from '../fragments/imageFragment';
 import ImageConnectionFragment from '../fragments/imageConnectionFragment';
 
 export default gql`
@@ -22,6 +23,9 @@ export default gql`
                             name
                             value
                         }
+                        image {
+                            ...ImageFragment
+                        }
                         product {
                             handle
                             vendor
@@ -37,5 +41,6 @@ export default gql`
             }
         }
     }
+    ${ImageFragment}
     ${ImageConnectionFragment}
 `
