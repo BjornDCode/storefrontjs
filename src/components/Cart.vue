@@ -2,7 +2,14 @@
     <div class="cart">
         <slot name="header"></slot>
 
-        <div v-if="lineItems.length">
+
+        <div v-if="completed">
+            <slot name="completed">
+                <p>Thank you for your purchase</p>
+            </slot>
+        </div>
+
+        <div v-else-if="lineItems.length">
             <slot name="lineItems">
                 <div class="cart--table">
                     <table>
@@ -78,9 +85,10 @@
 
             <slot name="actions">
                 <div class="cart__actions">
-                    <a :href="checkout.webUrl" class="cart__actions--checkout" target="_blank">
+                    <button @click="checkoutStart">Checkout</button>
+<!--                     <a :href="checkout.webUrl" class="cart__actions--checkout" target="_blank">
                         Checkout
-                    </a>
+                    </a> -->
                 </div>
             </slot>
         </div>
@@ -96,9 +104,11 @@
 </template>
 
 <script>
+    import { GET_CHECKOUT } from '../graphql/queries';
     import { UPDATE_LINE_ITEMS } from '../graphql/mutations';
 
     export default {
+
         props: {
             checkout: {
                 type: Object,
@@ -109,12 +119,30 @@
         data() {
             return {
                 lineItems: this.checkout.lineItems.edges.map(lineItem => lineItem.node),
-                subTotal: this.checkout.subtotalPrice
+                subTotal: this.checkout.subtotalPrice,
+                externalCheckoutActive: false,
+                completed: false
+            }
+        },
+
+        apollo: {
+            completed: {
+                query: GET_CHECKOUT,
+                variables() {
+                    return {
+                        id: this.checkout.id
+                    }
+                },
+                update: data => Boolean(data.node.completedAt),
+                fetchPolicy: 'network-only',
+                pollInterval: 1000,
+                skip() {
+                    return !this.externalCheckoutActive || this.completed;
+                }
             }
         },
 
         methods: {
-
             updateQuantity(e) {
                 this.updateLineItems(e, Number(e.target.value));
             },
@@ -139,6 +167,11 @@
                         this.$event.$emit('lineItemsCountUpdate', data.checkoutLineItemsUpdate.checkout.lineItems.edges.length)
                     }
                 });
+            },
+
+            checkoutStart() {
+                this.externalCheckoutActive = true;
+                window.open(this.checkout.webUrl);
             }
 
         }

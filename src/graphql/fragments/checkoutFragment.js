@@ -8,6 +8,7 @@ export default gql`
         subtotalPrice
         totalTax
         totalPrice
+        completedAt
         lineItems(first: 250) {
             edges {
                 node {
