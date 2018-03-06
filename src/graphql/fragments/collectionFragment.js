@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import ProductCardFragment from '../fragments/productCardFragment';
+import ImageFragment from '../fragments/imageFragment';
 
 export default gql`
     fragment CollectionFragment on Collection {
@@ -7,12 +8,12 @@ export default gql`
         title
         descriptionHtml,
         image {
-            src
-            altText
+            ...ImageFragment
         }
         products(first: 10 after: $cursor) {
             ...ProductCardFragment
         }
     }
     ${ProductCardFragment}
+    ${ImageFragment}
 `

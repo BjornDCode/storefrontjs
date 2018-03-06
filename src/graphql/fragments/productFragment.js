@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import ImageConnectionFragment from '../fragments/imageConnectionFragment';
 
 export default gql`
     fragment ProductFragment on Product {
@@ -7,12 +8,7 @@ export default gql`
         vendor
         descriptionHtml
         images(first: 20) {
-            edges {
-                node {
-                    src,
-                    altText
-                }
-            }
+            ...ImageConnectionFragment
         }
         options {
             name
@@ -33,4 +29,5 @@ export default gql`
             }
         }
     }
+    ${ImageConnectionFragment}
 `

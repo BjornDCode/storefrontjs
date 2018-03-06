@@ -106,12 +106,6 @@
             }
         },
 
-        mounted() {
-            if (this.lineItems.length) {
-                console.log('lineItem', this.lineItems[0])
-            }            
-        },
-
         data() {
             return {
                 lineItems: this.checkout.lineItems.edges.map(lineItem => lineItem.node),

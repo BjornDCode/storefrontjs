@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import ImageConnectionFragment from '../fragments/imageConnectionFragment';
 
 export default gql`
     fragment CheckoutFragment on Checkout {
@@ -24,12 +25,7 @@ export default gql`
                             handle
                             vendor
                             images(first: 1) {
-                                edges {
-                                    node {
-                                        altText
-                                        src 
-                                    }
-                                }
+                                ...ImageConnectionFragment
                             }
                         }
                     }
@@ -40,4 +36,5 @@ export default gql`
             }
         }
     }
+    ${ImageConnectionFragment}
 `

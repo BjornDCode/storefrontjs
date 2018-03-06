@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import ImageConnectionFragment from '../fragments/imageConnectionFragment';
 
 export default gql`
     fragment ProductCardFragment on ProductConnection {
@@ -8,12 +9,7 @@ export default gql`
                 title,
                 handle,
                 images(first: 1) {
-                    edges {
-                        node {
-                            src,
-                            altText
-                        }
-                    }
+                    ...ImageConnectionFragment
                 },
                 variants(first: 1) {
                     edges {
@@ -29,4 +25,5 @@ export default gql`
             hasPreviousPage
         }
     }
+    ${ImageConnectionFragment}
 `

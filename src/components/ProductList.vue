@@ -19,10 +19,6 @@
                 type: Array,
                 required: true
             }
-        },
-
-        mounted() {
-            console.log('list', this.products)
         }
     }
 </script>
