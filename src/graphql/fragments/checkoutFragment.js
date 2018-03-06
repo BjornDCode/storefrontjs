@@ -16,8 +16,13 @@ export default gql`
                     variant {
                         id
                         price
+                        selectedOptions {
+                            name
+                            value
+                        }
                         product {
                             handle
+                            vendor
                             images(first: 1) {
                                 edges {
                                     node {

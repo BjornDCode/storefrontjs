@@ -28,6 +28,16 @@
                                     <router-link :to="'/product/' + lineItem.variant.product.handle">
                                         {{ lineItem.title }}
                                     </router-link>
+                                    <div>
+                                        <span>
+                                            {{ lineItem.variant.product.vendor }}
+                                        </span>
+                                    </div>
+                                    <dl>
+                                        <div v-for="option in lineItem.variant.selectedOptions">
+                                            <dt>{{ option.name }}:</dt> <dd>{{ option.value }}</dd>
+                                        </div>
+                                    </dl>
                                 </td>
                                 <td>
                                     <sf-price :price="lineItem.variant.price"></sf-price>
@@ -94,6 +104,12 @@
                 type: Object,
                 required: true
             }
+        },
+
+        mounted() {
+            if (this.lineItems.length) {
+                console.log('lineItem', this.lineItems[0])
+            }            
         },
 
         data() {
