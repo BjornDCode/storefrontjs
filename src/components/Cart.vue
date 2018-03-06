@@ -108,7 +108,7 @@
 
 <script>
     import { GET_CHECKOUT } from '../graphql/queries';
-    import { UPDATE_LINE_ITEMS } from '../graphql/mutations';
+    import { UPDATE_LINE_ITEMS, CREATE_CHECKOUT, UPDATE_CHECKOUT_ID } from '../graphql/mutations';
 
     export default {
 
@@ -145,6 +145,12 @@
             }
         },
 
+        watch: {
+            completed: function(newStatus, oldStatus) {
+                this.createCheckoutMutation();
+            }
+        },
+
         methods: {
             updateQuantity(e) {
                 this.updateLineItems(e, Number(e.target.value));
@@ -175,6 +181,25 @@
             checkoutStart() {
                 this.externalCheckoutActive = true;
                 window.open(this.checkout.webUrl);
+            },
+
+            createCheckoutMutation() {
+                this.$apollo.mutate({
+                    mutation: CREATE_CHECKOUT,
+                    update: (store, { data }) => {
+                        this.setLocalCheckoutID(data.checkoutCreate.checkout.id);
+                        this.$event.$emit('newCheckout', data.checkoutCreate.checkout.id)
+                        this.$event.$emit('lineItemsCountUpdate', 0)
+                    }
+                });
+            },
+            setLocalCheckoutID(id) {
+                this.$apollo.mutate({
+                    mutation: UPDATE_CHECKOUT_ID,
+                    variables: {
+                        id
+                    }
+                })
             }
 
         }

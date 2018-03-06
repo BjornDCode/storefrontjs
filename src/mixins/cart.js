@@ -12,7 +12,8 @@ export default {
     },
 
     mounted() {
-        this.$event.$on('lineItemsCountUpdate', count => this.lineItemsCount = count)
+        this.$event.$on('lineItemsCountUpdate', count => this.lineItemsCount = count);
+        this.$event.$on('newCheckout', id => this.checkoutId = id)
     },
 
     apollo: {
@@ -30,6 +31,11 @@ export default {
         checkout: {
             query: GET_CHECKOUT,
             update: function(data) {
+                // if (data.node.completedAt) {
+                //     this.createCheckoutMutation();
+                //     return;
+                // }
+
                 this.lineItemsCount = data.node.lineItems.edges.length;
                 return data.node;
             },
