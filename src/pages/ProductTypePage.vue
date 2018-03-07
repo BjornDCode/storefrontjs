@@ -2,6 +2,10 @@
     <div>
         <h1>{{ typeName }}</h1>
 
+        <div v-if="$apollo.loading">
+            <sf-loader></sf-loader>
+        </div>
+
         <div v-if="error">
             <sf-error :error="{ message: 'Sorry, something went wrong' }"></sf-error>
         </div>

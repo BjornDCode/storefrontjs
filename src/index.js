@@ -43,6 +43,7 @@ import CartLink from './components/CartLink';
 
 import Price from './components/Price';
 import Error from './components/Error';
+import Loader from './components/Loader';
 
 let Storefront = {
 
@@ -128,6 +129,7 @@ let Storefront = {
 
         Vue.component('sf-price', Price);
         Vue.component('sf-error', Error);
+        Vue.component('sf-loader', Loader);
 
         if (options.router) {
             const routes = [
