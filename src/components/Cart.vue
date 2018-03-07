@@ -66,6 +66,7 @@
                                         type="number" 
                                         :data-id="lineItem.id"
                                         :value="lineItem.quantity"
+                                        :disabled="updatingCart"
                                     >
                                 </td>
                                 <td>
@@ -76,6 +77,7 @@
                                         @click="removeFromCart" 
                                         :value="lineItem.id"
                                         :data-id="lineItem.id"
+                                        :disabled="updatingCart"
                                     >
                                         &times;
                                     </button>
@@ -96,7 +98,12 @@
 
             <slot name="actions">
                 <div class="cart__actions">
-                    <button @click="checkoutStart">Checkout</button>
+                    <button 
+                        @click="checkoutStart" 
+                        :disabled="updatingCart"
+                    >
+                        Checkout
+                    </button>
                 </div>
             </slot>
         </div>
@@ -128,6 +135,7 @@
             return {
                 lineItems: this.checkout.lineItems.edges.map(lineItem => lineItem.node),
                 subTotal: this.checkout.subtotalPrice,
+                updatingCart: false,
                 externalCheckoutActive: false,
                 completed: false,
                 error: undefined
@@ -168,6 +176,7 @@
             },
 
             updateLineItems(event, quantity) {
+                this.updatingCart = true;
                 this.$apollo.mutate({
                     mutation: UPDATE_LINE_ITEMS,
                     variables: {
@@ -182,6 +191,9 @@
                         this.subTotal = data.checkoutLineItemsUpdate.checkout.subtotalPrice;
                         this.$event.$emit('lineItemsCountUpdate', data.checkoutLineItemsUpdate.checkout.lineItems.edges.length)
                     }
+                })
+                .then(data => {
+                    this.updatingCart = false;
                 })
                 .catch(error => {
                     this.error = error

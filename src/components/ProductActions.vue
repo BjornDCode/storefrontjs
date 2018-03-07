@@ -13,10 +13,21 @@
             </slot>
         </div>
 
-        <button @click="addToCart" :class="loading ? 'loading' : ''">Add To Cart</button>
+        <button 
+            @click="addToCart" 
+            :class="loading ? 'loading' : ''" 
+            :disable="loading"
+        >
+            Add To Cart
+        </button>
         <div class="product__actions--quantity">
             <label for="quantity">Quantity</label>
-            <input type="number" id="quantity" v-model.number="quantity">
+            <input 
+                type="number" 
+                id="quantity" 
+                v-model.number="quantity" 
+                :disabled="loading"
+            >
         </div>
     </div>
 </template>
