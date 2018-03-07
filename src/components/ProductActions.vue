@@ -9,7 +9,7 @@
 
         <div v-if="success">
             <slot name="success">
-                <p>The product has been added to your cart.</p>
+                <p class="sucess">The product has been added to your cart.</p>
             </slot>
         </div>
 
