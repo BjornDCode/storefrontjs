@@ -37,7 +37,7 @@
 
         data() {
             return {
-                slider: false
+                slider: undefined
             }
         },
 

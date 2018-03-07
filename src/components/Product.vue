@@ -1,9 +1,9 @@
 <template>
     <div class="product" itemscope itemtype="http://schema.org/Product">
         <slot name="image">
-            <sf-product-images-slider 
+            <sf-product-images-gallery 
                 :images="images"
-            ></sf-product-images-slider>
+            ></sf-product-images-gallery>
         </slot>
         <slot name="info">
             <div class="product__info">
