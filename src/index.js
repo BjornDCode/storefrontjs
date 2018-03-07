@@ -44,6 +44,8 @@ import CartLink from './components/CartLink';
 import Price from './components/Price';
 import Error from './components/Error';
 import Loader from './components/Loader';
+import Pagination from './components/Pagination';
+import PaginationCollection from './components/PaginationCollection';
 
 let Storefront = {
 
@@ -130,6 +132,8 @@ let Storefront = {
         Vue.component('sf-price', Price);
         Vue.component('sf-error', Error);
         Vue.component('sf-loader', Loader);
+        Vue.component('sf-pagination', Pagination);
+        Vue.component('sf-pagination-collection', PaginationCollection);
 
         if (options.router) {
             const routes = [

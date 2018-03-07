@@ -12,6 +12,11 @@
 
         <div v-if="data">
             <sf-product-list :products="products"></sf-product-list>
+
+            <sf-pagination
+                :query="$apollo.queries.data"
+                :data="data" 
+            ></sf-pagination>
         </div>
     </div>
 </template>

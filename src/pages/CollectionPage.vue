@@ -19,6 +19,11 @@
             <div class="collection__products">
                 <h2>Products</h2>
                 <sf-product-list :products="products"></sf-product-list>
+
+                <sf-pagination-collection
+                    :query="$apollo.queries.collection"
+                    :data="collection"
+                ></sf-pagination-collection>
             </div>
         </div>
     </div>
@@ -60,24 +65,4 @@
         }
 
     }
-
-    // export default {
-        
-    //     created() {
-    //         this.getActiveCollection(this.$route.params.handle);
-    //     },
-
-    //     computed: {
-    //         collection() {
-    //             return this.$store.getters['collections/activeCollection'];
-    //         }
-    //     },
-
-    //     methods: {
-    //         getActiveCollection(handle) {
-    //             this.$store.dispatch('collections/activeCollection', handle);
-    //         }
-    //     }
-
-    // }
 </script>
