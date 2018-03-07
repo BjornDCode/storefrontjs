@@ -3,7 +3,9 @@
         <slot name="header"></slot>
 
         <div v-if="error">
-            <sf-error :error="{ message: 'Sorry, something went wrong' }"></sf-error>
+            <slot name="error">
+                <sf-error :error="{ message: 'Sorry, something went wrong' }"></sf-error>
+            </slot>
         </div>
     
         <div v-if="completed">

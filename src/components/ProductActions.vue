@@ -2,7 +2,15 @@
     <div class="product__actions">
 
         <div v-if="error">
-            <sf-error :error="{ message: 'Sorry, something went wrong' }"></sf-error>
+            <slot name="error">
+                <sf-error :error="{ message: 'Sorry, something went wrong' }"></sf-error>
+            </slot>
+        </div>
+
+        <div v-if="success">
+            <slot name="success">
+                <p>The product has been added to your cart.</p>
+            </slot>
         </div>
 
         <button @click="addToCart">Add To Cart</button>
@@ -30,6 +38,7 @@
         data() {
             return {
                 quantity: 1,
+                success: false,
                 error: undefined
             }
         },
@@ -49,6 +58,9 @@
                         this.checkout = data.checkoutLineItemsAdd.checkout;
                         this.$event.$emit('lineItemsCountUpdate', data.checkoutLineItemsAdd.checkout.lineItems.edges.length)
                     }
+                })
+                .then(data => {
+                    this.success = true
                 })
                 .catch(error => {
                     this.error = error
