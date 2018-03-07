@@ -13,7 +13,7 @@
             </slot>
         </div>
 
-        <button @click="addToCart">Add To Cart</button>
+        <button @click="addToCart" :class="loading ? 'loading' : ''">Add To Cart</button>
         <div class="product__actions--quantity">
             <label for="quantity">Quantity</label>
             <input type="number" id="quantity" v-model.number="quantity">
@@ -39,12 +39,15 @@
             return {
                 quantity: 1,
                 success: false,
-                error: undefined
+                error: undefined,
+                loading: false
             }
         },
 
         methods: {
             addToCart() {
+                this.loading = true;
+
                 this.$apollo.mutate({
                     mutation: ADD_LINE_ITEMS,
                     variables: {
@@ -60,10 +63,11 @@
                     }
                 })
                 .then(data => {
-                    this.success = true
+                    this.success = true;
+                    this.loading = false;
                 })
                 .catch(error => {
-                    this.error = error
+                    this.error = error;
                 });
             }
         }
