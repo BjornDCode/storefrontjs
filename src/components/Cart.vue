@@ -2,7 +2,10 @@
     <div class="cart">
         <slot name="header"></slot>
 
-
+        <div v-if="error">
+            <sf-error :error="{ message: 'Sorry, something went wrong' }"></sf-error>
+        </div>
+    
         <div v-if="completed">
             <slot name="completed">
                 <p>Thank you for your purchase</p>
@@ -124,7 +127,8 @@
                 lineItems: this.checkout.lineItems.edges.map(lineItem => lineItem.node),
                 subTotal: this.checkout.subtotalPrice,
                 externalCheckoutActive: false,
-                completed: false
+                completed: false,
+                error: undefined
             }
         },
 
@@ -137,6 +141,7 @@
                     }
                 },
                 update: data => Boolean(data.node.completedAt),
+                error: error => this.error = error,
                 fetchPolicy: 'network-only',
                 pollInterval: 1000,
                 skip() {
@@ -175,6 +180,9 @@
                         this.subTotal = data.checkoutLineItemsUpdate.checkout.subtotalPrice;
                         this.$event.$emit('lineItemsCountUpdate', data.checkoutLineItemsUpdate.checkout.lineItems.edges.length)
                     }
+                })
+                .catch(error => {
+                    this.error = error
                 });
             },
 
@@ -191,7 +199,10 @@
                         this.$event.$emit('newCheckout', data.checkoutCreate.checkout.id)
                         this.$event.$emit('lineItemsCountUpdate', 0)
                     }
-                });
+                })
+                .catch(error => {
+                    this.error = error
+                });;
             },
             setLocalCheckoutID(id) {
                 this.$apollo.mutate({

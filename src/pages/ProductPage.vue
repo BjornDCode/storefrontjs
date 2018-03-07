@@ -1,5 +1,11 @@
 <template>
-    <sf-product v-if="product" :product="product"></sf-product>
+    <div>
+        <div v-if="error">
+            <sf-error :error="{ message: 'Sorry, something went wrong' }"></sf-error>
+        </div>
+        
+        <sf-product v-if="product" :product="product"></sf-product>
+    </div>
 </template>
 
 <script>
@@ -8,7 +14,8 @@
     export default {
         data() {
             return {
-                product: undefined
+                product: undefined,
+                error: undefined
             }
         },
 
@@ -20,7 +27,8 @@
                         handle: this.handle  
                     }
                 },
-                update: data => data.shop.productByHandle
+                update: data => data.shop.productByHandle,
+                error: error => this.error = error
             }
         },
 

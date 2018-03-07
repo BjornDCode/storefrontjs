@@ -1,5 +1,10 @@
 <template>
     <div class="product__actions">
+
+        <div v-if="error">
+            <sf-error :error="{ message: 'Sorry, something went wrong' }"></sf-error>
+        </div>
+
         <button @click="addToCart">Add To Cart</button>
         <div class="product__actions--quantity">
             <label for="quantity">Quantity</label>
@@ -24,7 +29,8 @@
 
         data() {
             return {
-                quantity: 1
+                quantity: 1,
+                error: undefined
             }
         },
 
@@ -44,6 +50,9 @@
                         this.$event.$emit('lineItemsCountUpdate', data.checkoutLineItemsAdd.checkout.lineItems.edges.length)
                     }
                 })
+                .catch(error => {
+                    this.error = error
+                });
             }
         }
     }

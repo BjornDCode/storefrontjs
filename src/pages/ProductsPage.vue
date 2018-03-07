@@ -2,6 +2,10 @@
     <div>
         <h1>Products</h1>
 
+        <div v-if="error">
+            <sf-error :error="{ message: 'Sorry, something went wrong' }"></sf-error>
+        </div>
+
         <div v-if="data">
             <sf-product-list :products="products"></sf-product-list>
             <button v-if="pageInfo.hasNextPage" @click="loadMore">Load More</button>
@@ -15,13 +19,15 @@
     export default {
         data() {
             return {
-                data: undefined
+                data: undefined,
+                error: undefined
             }
         },
         apollo: {
             data: {
                 query: GET_PRODUCTS,
-                update: data => data
+                update: data => data,
+                error: error => this.error = error
             }
         },
 

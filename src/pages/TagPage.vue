@@ -1,6 +1,11 @@
 <template>
     <div>
         <h1>{{ tagName }}</h1>
+
+        <div v-if="error">
+            <sf-error :error="{ message: 'Sorry, something went wrong' }"></sf-error>
+        </div>
+
         <div v-if="data">
             <sf-product-list :products="products"></sf-product-list>
         </div>
@@ -13,7 +18,8 @@
     export default {
         data() {
             return {
-                data: undefined
+                data: undefined,
+                error: undefined
             }
         },
 
@@ -25,7 +31,8 @@
                         query: `tag:${this.handle}`
                     }
                 },
-                update: data => data
+                update: data => data,
+                error: error => this.error = error
             }
         },
 
