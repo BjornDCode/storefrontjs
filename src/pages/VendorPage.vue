@@ -17,6 +17,10 @@
                 :query="$apollo.queries.data"
                 :data="data" 
             ></sf-pagination>
+
+            <div v-if="!products.length">
+                Sorry, no products in this category
+            </div>
         </div>
     </div>
 </template>

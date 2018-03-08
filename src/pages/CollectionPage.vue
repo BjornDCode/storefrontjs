@@ -9,7 +9,7 @@
         </div>
     
         <div class="collection" v-if="collection">
-            <div class="collection__image">
+            <div class="collection__image" v-if="collection.image">
                 <img :src="collection.image.src" :alt="collection.image.altText">
             </div>
             <div class="collection__info">
@@ -24,6 +24,10 @@
                     :query="$apollo.queries.collection"
                     :data="collection"
                 ></sf-pagination-collection>
+
+                <div v-if="!products.length">
+                    Sorry, no products in this category 
+                </div>
             </div>
         </div>
     </div>
