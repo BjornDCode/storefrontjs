@@ -33,8 +33,8 @@
 </template>
 
 <script>
-    import cart from '../mixins/cart';
-    import { ADD_LINE_ITEMS } from '../graphql/mutations';
+    import cart from '../../mixins/cart';
+    import { ADD_LINE_ITEMS } from '../../graphql/mutations';
 
     export default {
         mixins: [cart],

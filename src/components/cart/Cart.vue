@@ -119,8 +119,8 @@
 </template>
 
 <script>
-    import { GET_CHECKOUT } from '../graphql/queries';
-    import { UPDATE_LINE_ITEMS, CREATE_CHECKOUT, UPDATE_CHECKOUT_ID } from '../graphql/mutations';
+    import { GET_CHECKOUT } from '../../graphql/queries';
+    import { UPDATE_LINE_ITEMS, CREATE_CHECKOUT, UPDATE_CHECKOUT_ID } from '../../graphql/mutations';
 
     export default {
 

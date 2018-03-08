@@ -19,7 +19,7 @@
             suffix: {
                 type: String,
                 required: false
-            },
+            }
         }
     }
 </script>

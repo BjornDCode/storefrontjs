@@ -18,34 +18,34 @@ import TagView from './views/TagView';
 import VendorView from './views/VendorView';
 import ProductTypeView from './views/ProductTypeView';
 
-import ProductCard from './components/ProductCard';
-import ProductList from './components/ProductList';
+import ProductCard from './components/product/ProductCard';
+import ProductList from './components/product/ProductList';
 
-import Product from './components/Product';
-import ProductDescription from './components/ProductDescription';
-import ProductActions from './components/ProductActions';
-import ProductPrice from './components/ProductPrice';
-import ProductTags from './components/ProductTags';
+import Product from './components/product/Product';
+import ProductDescription from './components/product/ProductDescription';
+import ProductActions from './components/product/ProductActions';
+import ProductPrice from './components/product/ProductPrice';
+import ProductTags from './components/product/ProductTags';
 
-import ProductOptions from './components/ProductOptions';
-import ProductOptionsRadio from './components/ProductOptionsRadio';
-import ProductOptionsSelect from './components/ProductOptionsSelect';
+import ProductOptions from './components/product/ProductOptions';
+import ProductOptionsRadio from './components/product/ProductOptionsRadio';
+import ProductOptionsSelect from './components/product/ProductOptionsSelect';
 
-import ProductTabs from './components/ProductTabs';
-import ProductTab from './components/ProductTab';
+import ProductTabs from './components/product/ProductTabs';
+import ProductTab from './components/product/ProductTab';
 
-import ProductImages from './components/ProductImages';
-import ProductImagesGallery from './components/ProductImagesGallery';
-import ProductImagesSlider from './components/ProductImagesSlider';
+import ProductImages from './components/product/ProductImages';
+import ProductImagesGallery from './components/product/ProductImagesGallery';
+import ProductImagesSlider from './components/product/ProductImagesSlider';
 
-import Cart from './components/Cart';
-import CartLink from './components/CartLink';
+import Cart from './components/cart/Cart';
+import CartLink from './components/cart/CartLink'; 
 
-import Price from './components/Price';
-import Error from './components/Error';
-import Loader from './components/Loader';
-import Pagination from './components/Pagination';
-import PaginationCollection from './components/PaginationCollection';
+import Price from './components/utilities/Price';
+import Error from './components/utilities/Error';
+import Loader from './components/utilities/Loader';
+import Pagination from './components/utilities/Pagination';
+import PaginationCollection from './components/utilities/PaginationCollection';
 
 let Storefront = {
 

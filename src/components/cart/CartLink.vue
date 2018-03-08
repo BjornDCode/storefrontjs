@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import cart from '../mixins/cart';
+    import cart from '../../mixins/cart';
 
     export default {
         mixins: [cart]
