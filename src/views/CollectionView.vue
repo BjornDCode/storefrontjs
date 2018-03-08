@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="collection-view">
         <div v-if="$apollo.loading">
             <sf-loader></sf-loader>
         </div>

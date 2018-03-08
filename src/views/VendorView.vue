@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h1>{{ tagName }}</h1>
+    <div class="vendor-view">
+        <h1>{{ vendorName }}</h1>
 
         <div v-if="$apollo.loading">
             <sf-loader></sf-loader>
@@ -41,7 +41,7 @@
                 query: GET_PRODUCTS,
                 variables() {
                     return {
-                        query: `tag:${this.handle}`
+                        query: `vendor:${this.handle}`
                     }
                 },
                 update: data => data,
@@ -53,7 +53,7 @@
             handle() {
                 return this.$route.params.handle;
             },
-            tagName() {
+            vendorName() {
                 return this.handle.charAt(0).toUpperCase() + this.handle.slice(1);
             },
             products() {

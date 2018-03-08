@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="products-view">
         <h1>Products</h1>
 
         <div v-if="$apollo.loading">

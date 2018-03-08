@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="product-type-view">
         <h1>{{ typeName }}</h1>
 
         <div v-if="$apollo.loading">

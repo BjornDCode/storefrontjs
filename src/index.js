@@ -10,13 +10,13 @@ import productsModule from './modules/products';
 import collectionsModule from './modules/collections';
 import cartModule from './modules/cart';
 
-import ProductsPage from './pages/ProductsPage';
-import ProductPage from './pages/ProductPage';
-import CollectionPage from './pages/CollectionPage';
-import CartPage from './pages/CartPage';
-import TagPage from './pages/TagPage';
-import VendorPage from './pages/VendorPage';
-import ProductTypePage from './pages/ProductTypePage';
+import ProductsView from './views/ProductsView';
+import ProductView from './views/ProductView';
+import CollectionView from './views/CollectionView';
+import CartView from './views/CartView';
+import TagView from './views/TagView';
+import VendorView from './views/VendorView';
+import ProductTypeView from './views/ProductTypeView';
 
 import ProductCard from './components/ProductCard';
 import ProductList from './components/ProductList';
@@ -137,13 +137,13 @@ let Storefront = {
 
         if (options.router) {
             const routes = [
-                { path: '/products', component: ProductsPage },
-                { path: '/product/:handle', component: ProductPage },
-                { path: '/collection/:handle', component: CollectionPage },
-                { path: '/tag/:handle', component: TagPage },
-                { path: '/vendor/:handle', component: VendorPage },
-                { path: '/type/:handle', component: ProductTypePage },
-                { path: '/cart', component: CartPage }
+                { path: '/products', component: ProductsView },
+                { path: '/product/:handle', component: ProductView },
+                { path: '/collection/:handle', component: CollectionView },
+                { path: '/tag/:handle', component: TagView },
+                { path: '/vendor/:handle', component: VendorView },
+                { path: '/type/:handle', component: ProductTypeView },
+                { path: '/cart', component: CartView }
             ];
 
             options.router.addRoutes(routes);
