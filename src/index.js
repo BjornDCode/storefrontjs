@@ -10,6 +10,7 @@ import productsModule from './modules/products';
 import collectionsModule from './modules/collections';
 import cartModule from './modules/cart';
 
+import BaseProductsView from './views/BaseProductsView';
 import ProductsView from './views/ProductsView';
 import ProductView from './views/ProductView';
 import CollectionView from './views/CollectionView';
@@ -105,6 +106,8 @@ let Storefront = {
         Vue.provider = function() {
             return apolloProvider.provide();
         }
+
+        Vue.component('sf-base-products-view', BaseProductsView);
 
         Vue.component('sf-product-card', ProductCard);
         Vue.component('sf-product-list', ProductList);
