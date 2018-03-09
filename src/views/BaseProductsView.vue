@@ -61,11 +61,15 @@
 
         computed: {
             handle() {
+                if (!this.$route.params.handle) return;
+                
                 return this.$route.params.handle.replace('-', ' ');
             },
 
             pageName() {
-                if (!this.handle) return 'Products';
+                if (!this.handle) {
+                    return 'Products'
+                };
 
                 return this.convertHandleToTitle(this.handle);
             },
