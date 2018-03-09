@@ -19,6 +19,7 @@
                     :href="variant.availableForSale ? 'http://schema.org/InStock' : 'http://schema.org/OutOfStock'"
                 >
                 <sf-product-price :price="price" prefix="$" currency-code="USD"></sf-product-price>
+                <div v-if="!variant.availableForSale" class="product__offer--available">Out of stock</div>
                 <sf-product-options-radio :product="product" v-model="variantIndex"></sf-product-options-radio>
                 <sf-product-actions :variant-id="variant.id"></sf-product-actions>
             </div>
@@ -39,6 +40,10 @@
             return {
                 variantIndex: 0
             }
+        },
+
+        mounted() {
+            console.log(this.product.variants.edges.map(variant => variant.node))
         },
 
         computed: {
