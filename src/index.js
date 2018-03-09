@@ -54,7 +54,7 @@ let Storefront = {
             const apolloClient = new ApolloClient({
                 link: httpLink,
                 cache: options.cache,
-                connectToDevTools: true
+                connectToDevTools: options.apolloDevTools
             });
 
             Vue.use(VueApollo)
