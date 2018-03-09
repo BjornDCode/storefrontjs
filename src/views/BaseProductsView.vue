@@ -61,15 +61,25 @@
 
         computed: {
             handle() {
-                return this.$route.params.handle;
+                return this.$route.params.handle.replace('-', ' ');
             },
+
             pageName() {
                 if (!this.handle) return 'Products';
 
-                return this.handle.charAt(0).toUpperCase() + this.handle.slice(1);
+                return this.convertHandleToTitle(this.handle);
             },
+
             products() {
                 return this.data.shop.products.edges.map(product => product.node);
+            }
+        },
+
+        methods: {
+            convertHandleToTitle(text) {
+                return text.replace(/\w\S*/g, (word) => {
+                    return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
+                })
             }
         }
     }
