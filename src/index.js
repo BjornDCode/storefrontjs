@@ -39,10 +39,11 @@ let Storefront = {
             throw new Error("You must provide a persistor created with 'persistCache' from 'apollo-cache-persist'")
         }
 
+        // Setup a global event bus
         Vue.prototype.$event = new Vue();
 
+        // Wait until data from the cache is retrieved to initialise the rest of Apollo
         options.persistor.then(() => {
-
             const httpLink = new HttpLink({
                 uri: `${options.domain}/api/graphql`,
                 headers: {
@@ -68,8 +69,10 @@ let Storefront = {
 
         }); // End of promise
 
+        // Register all Storefront components
         this.setupComponents(Vue);
 
+        // Initialise Routes if a router is provided
         if (options.router) {
             this.setupRoutes(options.router);
         }
