@@ -40,7 +40,7 @@
             return {
                 variantIndex: 0
             }
-        }
+        },
 
         computed: {
             variant() {
