@@ -1,14 +1,10 @@
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { persistCache } from 'apollo-cache-persist';
 import VueApollo from 'vue-apollo';
 import gql from 'graphql-tag';
 
-import productsModule from './modules/products';
-import collectionsModule from './modules/collections';
-import cartModule from './modules/cart';
+import components from './components';
 
 import BaseProductsView from './views/BaseProductsView';
 import ProductsView from './views/ProductsView';
@@ -19,44 +15,31 @@ import TagView from './views/TagView';
 import VendorView from './views/VendorView';
 import ProductTypeView from './views/ProductTypeView';
 
-import ProductCard from './components/product/ProductCard';
-import ProductList from './components/product/ProductList';
-
-import Product from './components/product/Product';
-import ProductDescription from './components/product/ProductDescription';
-import ProductActions from './components/product/ProductActions';
-import ProductPrice from './components/product/ProductPrice';
-import ProductTags from './components/product/ProductTags';
-
-import ProductOptions from './components/product/ProductOptions';
-import ProductOptionsRadio from './components/product/ProductOptionsRadio';
-import ProductOptionsSelect from './components/product/ProductOptionsSelect';
-
-import ProductTabs from './components/product/ProductTabs';
-import ProductTab from './components/product/ProductTab';
-
-import ProductImages from './components/product/ProductImages';
-import ProductImagesGallery from './components/product/ProductImagesGallery';
-import ProductImagesSlider from './components/product/ProductImagesSlider';
-
-import Cart from './components/cart/Cart';
-import CartLink from './components/cart/CartLink'; 
-
-import Price from './components/utilities/Price';
-import Error from './components/utilities/Error';
-import Loader from './components/utilities/Loader';
-import Pagination from './components/utilities/Pagination';
-import PaginationCollection from './components/utilities/PaginationCollection';
-
 let Storefront = {
 
     install(Vue, options) {
 
+        if (!options) {
+            throw new Error('You must provide an options object when initialising Storefront');
+        }
+
+        if (!options.domain) {
+            throw new Error('You must provide an url to a Shopify store');
+        }
+
+        if (!options.storefrontAccessToken) {
+            throw new Error('You must provide an access token to your Shopify store. \n See more information: https://help.shopify.com/api/storefront-api/getting-started#authentication');
+        }
+
+        if (!options.cache) {
+            throw new Error("You must provide a cache create with 'apollo-cache-inmemory'");
+        }
+
+        if (!options.persistor) {
+            throw new Error("You must provide a persistor created with 'persistCache' from 'apollo-cache-persist'")
+        }
+
         Vue.prototype.$event = new Vue();
-
-        // const cache = new InMemoryCache();
-
-        // persistCache({ cache, storage: window.localStorage });
 
         options.persistor.then(() => {
 
@@ -83,65 +66,62 @@ let Storefront = {
                 return apolloProvider.provide();
             }
 
-            console.log('plugin')
-
         }); // End of promise
 
-        
-        Vue.component('sf-base-products-view', BaseProductsView);
-
-        Vue.component('sf-product-card', ProductCard);
-        Vue.component('sf-product-list', ProductList);
-
-        Vue.component('sf-product', Product);
-        Vue.component('sf-product-description', ProductDescription);
-        Vue.component('sf-product-actions', ProductActions);
-        Vue.component('sf-product-price', ProductPrice);
-        Vue.component('sf-product-tags', ProductTags);
-
-        Vue.component('sf-product-options', ProductOptions);
-        Vue.component('sf-product-options-radio', ProductOptionsRadio);
-        Vue.component('sf-product-options-select', ProductOptionsSelect);
-
-        Vue.component('sf-product-tabs', ProductTabs);
-        Vue.component('sf-product-tab', ProductTab);
-
-        Vue.component('sf-product-images', ProductImages);
-        Vue.component('sf-product-images-gallery', ProductImagesGallery);
-        Vue.component('sf-product-images-slider', ProductImagesSlider);
-
-        Vue.component('sf-cart', Cart);
-        Vue.component('sf-cart-link', CartLink);
-
-        Vue.component('sf-price', Price);
-        Vue.component('sf-error', Error);
-        Vue.component('sf-loader', Loader);
-        Vue.component('sf-pagination', Pagination);
-        Vue.component('sf-pagination-collection', PaginationCollection);
+        this.setupComponents(Vue);
 
         if (options.router) {
-            const routes = [
-                { path: '/products', component: ProductsView },
-                { path: '/product/:handle', component: ProductView },
-                { path: '/collection/:handle', component: CollectionView },
-                { path: '/tag/:handle', component: TagView },
-                { path: '/vendor/:handle', component: VendorView },
-                { path: '/type/:handle', component: ProductTypeView },
-                { path: '/cart', component: CartView }
-            ];
-
-            options.router.addRoutes(routes);
+            this.setupRoutes(options.router);
         }
 
-        // return new Promise(function(resolve, reject) {
-        //     setTimeout(() => {
-        //       resolve('success')
-        //     }, 2000)
-        // })
+    },
 
+    setupComponents(Vue) {
+        Vue.component('sf-base-products-view', components.BaseProductsView);
+
+        Vue.component('sf-product-card', components.ProductCard);
+        Vue.component('sf-product-list', components.ProductList);
+
+        Vue.component('sf-product', components.Product);
+        Vue.component('sf-product-description', components.ProductDescription);
+        Vue.component('sf-product-actions', components.ProductActions);
+        Vue.component('sf-product-price', components.ProductPrice);
+        Vue.component('sf-product-tags', components.ProductTags);
+
+        Vue.component('sf-product-options', components.ProductOptions);
+        Vue.component('sf-product-options-radio', components.ProductOptionsRadio);
+        Vue.component('sf-product-options-select', components.ProductOptionsSelect);
+
+        Vue.component('sf-product-tabs', components.ProductTabs);
+        Vue.component('sf-product-tab', components.ProductTab);
+
+        Vue.component('sf-product-images', components.ProductImages);
+        Vue.component('sf-product-images-gallery', components.ProductImagesGallery);
+        Vue.component('sf-product-images-slider', components.ProductImagesSlider);
+
+        Vue.component('sf-cart', components.Cart);
+        Vue.component('sf-cart-link', components.CartLink);
+
+        Vue.component('sf-price', components.Price);
+        Vue.component('sf-error', components.StorefrontError);
+        Vue.component('sf-loader', components.Loader);
+        Vue.component('sf-pagination', components.Pagination);
+        Vue.component('sf-pagination-collection', components.PaginationCollection);
+    },
+
+    setupRoutes(router) {
+        const routes = [
+            { path: '/products', component: ProductsView },
+            { path: '/product/:handle', component: ProductView },
+            { path: '/collection/:handle', component: CollectionView },
+            { path: '/tag/:handle', component: TagView },
+            { path: '/vendor/:handle', component: VendorView },
+            { path: '/type/:handle', component: ProductTypeView },
+            { path: '/cart', component: CartView }
+        ];
+
+        router.addRoutes(routes);
     }
-
-    
 
 };
 
