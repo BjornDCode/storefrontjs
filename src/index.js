@@ -2,8 +2,8 @@ import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { persistCache } from 'apollo-cache-persist';
 import VueApollo from 'vue-apollo';
-import { withClientState } from 'apollo-link-state';
 import gql from 'graphql-tag';
 
 import productsModule from './modules/products';
@@ -54,59 +54,40 @@ let Storefront = {
 
         Vue.prototype.$event = new Vue();
 
-        const cache = new InMemoryCache();
+        // const cache = new InMemoryCache();
 
-        const httpLink = new HttpLink({
-            uri: `${options.domain}/api/graphql`,
-            headers: {
-                'X-Shopify-Storefront-Access-Token': options.storefrontAccessToken
-            }
-        });
+        // persistCache({ cache, storage: window.localStorage });
 
-        const defaultState = {
-            checkoutID: {
-                __typename: 'checkoutID',
-                id: false
-            }
-        };
+        options.persistor.then(() => {
 
-        const stateLink = withClientState({
-            cache,
-            defaults: defaultState,
-            resolvers: {
-                Mutation: {
-                    updateCheckoutId(_, { id }, { cache }) {
-
-                        const data = {
-                            checkoutID: {
-                                __typename: 'checkoutID',
-                                id: id
-                            }
-                        }; 
-
-                        cache.writeData({ data });
-                    }
+            const httpLink = new HttpLink({
+                uri: `${options.domain}/api/graphql`,
+                headers: {
+                    'X-Shopify-Storefront-Access-Token': options.storefrontAccessToken
                 }
+            });
+
+            const apolloClient = new ApolloClient({
+                link: httpLink,
+                cache: options.cache,
+                connectToDevTools: true
+            });
+
+            Vue.use(VueApollo)
+
+            const apolloProvider = new VueApollo({
+                defaultClient: apolloClient
+            });
+
+            Vue.provider = function() {
+                return apolloProvider.provide();
             }
-        });
 
+            console.log('plugin')
 
-        const apolloClient = new ApolloClient({
-            link: ApolloLink.from([stateLink, httpLink]),
-            cache: cache,
-            connectToDevTools: true
-        });
+        }); // End of promise
 
-        Vue.use(VueApollo)
-
-        const apolloProvider = new VueApollo({
-            defaultClient: apolloClient
-        });
-
-        Vue.provider = function() {
-            return apolloProvider.provide();
-        }
-
+        
         Vue.component('sf-base-products-view', BaseProductsView);
 
         Vue.component('sf-product-card', ProductCard);
@@ -151,6 +132,12 @@ let Storefront = {
 
             options.router.addRoutes(routes);
         }
+
+        // return new Promise(function(resolve, reject) {
+        //     setTimeout(() => {
+        //       resolve('success')
+        //     }, 2000)
+        // })
 
     }
 

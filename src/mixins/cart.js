@@ -1,11 +1,11 @@
-import { GET_CHECKOUT_ID, GET_CHECKOUT } from '../graphql/queries';
-import { CREATE_CHECKOUT, UPDATE_CHECKOUT_ID } from '../graphql/mutations';
+import { GET_CHECKOUT } from '../graphql/queries';
+import { CREATE_CHECKOUT } from '../graphql/mutations';
 
 
 export default {
     data() {
         return {
-            checkoutId: false,
+            checkoutId: localStorage.getItem('checkoutID'),
             checkout: false,
             lineItemsCount: 0
         }
@@ -14,28 +14,16 @@ export default {
     mounted() {
         this.$event.$on('lineItemsCountUpdate', count => this.lineItemsCount = count);
         this.$event.$on('newCheckout', id => this.checkoutId = id)
+
+        if (!this.checkoutId) {
+            this.createCheckoutMutation();
+        }
     },
 
     apollo: {
-        checkoutId: {
-            query: GET_CHECKOUT_ID,
-            update: function(data) {
-                if (!data.checkoutID.id) {
-                    this.createCheckoutMutation();
-                    return;
-                }
-
-                return data.checkoutID.id;                    
-            }
-        },
         checkout: {
             query: GET_CHECKOUT,
             update: function(data) {
-                // if (data.node.completedAt) {
-                //     this.createCheckoutMutation();
-                //     return;
-                // }
-
                 this.lineItemsCount = data.node.lineItems.edges.length;
                 return data.node;
             },
@@ -55,19 +43,10 @@ export default {
             this.$apollo.mutate({
                 mutation: CREATE_CHECKOUT,
                 update: (store, { data }) => {
+                    localStorage.setItem('checkoutID', data.checkoutCreate.checkout.id)
                     this.checkout = data.checkoutCreate.checkout;
-                    this.checkoutId = data.checkoutCreate.checkout.id;
-                    this.setLocalCheckoutID(data.checkoutCreate.checkout.id);
                 }
             });
-        },
-        setLocalCheckoutID(id) {
-            this.$apollo.mutate({
-                mutation: UPDATE_CHECKOUT_ID,
-                variables: {
-                    id
-                }
-            })
         }
     }
 }

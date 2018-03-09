@@ -1,4 +1,3 @@
-export { default as UPDATE_CHECKOUT_ID } from './updateCheckoutId';
 export { default as CREATE_CHECKOUT } from './createCheckout';
 
 export { default as UPDATE_LINE_ITEMS } from './updateLineItems';

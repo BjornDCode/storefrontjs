@@ -120,7 +120,7 @@
 
 <script>
     import { GET_CHECKOUT } from '../../graphql/queries';
-    import { UPDATE_LINE_ITEMS, CREATE_CHECKOUT, UPDATE_CHECKOUT_ID } from '../../graphql/mutations';
+    import { UPDATE_LINE_ITEMS, CREATE_CHECKOUT } from '../../graphql/mutations';
 
     export default {
 
@@ -210,6 +210,7 @@
                     mutation: CREATE_CHECKOUT,
                     update: (store, { data }) => {
                         this.setLocalCheckoutID(data.checkoutCreate.checkout.id);
+                        localStorage.setItem('checkoutID', data.checkoutCreate.checkout.id)
                         this.$event.$emit('newCheckout', data.checkoutCreate.checkout.id)
                         this.$event.$emit('lineItemsCountUpdate', 0)
                     }
@@ -217,16 +218,7 @@
                 .catch(error => {
                     this.error = error
                 });;
-            },
-            setLocalCheckoutID(id) {
-                this.$apollo.mutate({
-                    mutation: UPDATE_CHECKOUT_ID,
-                    variables: {
-                        id
-                    }
-                })
             }
-
         }
     }
 </script>
