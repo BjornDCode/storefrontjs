@@ -40,11 +40,7 @@
             return {
                 variantIndex: 0
             }
-        },
-
-        mounted() {
-            console.log(this.product.variants.edges.map(variant => variant.node))
-        },
+        }
 
         computed: {
             variant() {

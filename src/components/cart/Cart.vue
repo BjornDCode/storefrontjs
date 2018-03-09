@@ -209,7 +209,6 @@
                 this.$apollo.mutate({
                     mutation: CREATE_CHECKOUT,
                     update: (store, { data }) => {
-                        this.setLocalCheckoutID(data.checkoutCreate.checkout.id);
                         localStorage.setItem('checkoutID', data.checkoutCreate.checkout.id)
                         this.$event.$emit('newCheckout', data.checkoutCreate.checkout.id)
                         this.$event.$emit('lineItemsCountUpdate', 0)
