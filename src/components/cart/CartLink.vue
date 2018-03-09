@@ -1,5 +1,5 @@
 <template>
-    <router-link v-if="checkout" to="/cart">
+    <router-link v-if="checkout" :to="{ name: 'cart' }">
         <slot :count="lineItemsCount">Cart ({{lineItemsCount}})</slot>
     </router-link>
 </template>

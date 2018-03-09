@@ -80,7 +80,7 @@ let Storefront = {
     },
 
     setupComponents(Vue) {
-        Vue.component('sf-base-products-view', components.BaseProductsView);
+        Vue.component('sf-base-products-view', BaseProductsView);
 
         Vue.component('sf-product-card', components.ProductCard);
         Vue.component('sf-product-list', components.ProductList);
@@ -114,13 +114,13 @@ let Storefront = {
 
     setupRoutes(router) {
         const routes = [
-            { path: '/products', component: ProductsView },
-            { path: '/product/:handle', component: ProductView },
-            { path: '/collection/:handle', component: CollectionView },
-            { path: '/tag/:handle', component: TagView },
-            { path: '/vendor/:handle', component: VendorView },
-            { path: '/type/:handle', component: ProductTypeView },
-            { path: '/cart', component: CartView }
+            { path: '/products', component: ProductsView, name: 'products' },
+            { path: '/product/:handle', component: ProductView, name: 'product' },
+            { path: '/collection/:handle', component: CollectionView, name: 'collection' },
+            { path: '/tag/:handle', component: TagView, name: 'tag' },
+            { path: '/vendor/:handle', component: VendorView, name: 'vendor' },
+            { path: '/type/:handle', component: ProductTypeView, name: 'type' },
+            { path: '/cart', component: CartView, name: 'cart' }
         ];
 
         router.addRoutes(routes);

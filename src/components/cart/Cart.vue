@@ -43,7 +43,7 @@
                                     >
                                 </td>
                                 <td>
-                                    <router-link :to="'/product/' + lineItem.variant.product.handle">
+                                    <router-link :to="{ name: 'product', params: { handle: lineItem.variant.product.handle } }">
                                         {{ lineItem.title }}
                                     </router-link>
                                     <div>

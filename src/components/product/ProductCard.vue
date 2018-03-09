@@ -7,7 +7,7 @@
         </slot>
         <slot name="info">
             <div class="product-card__info">
-                <router-link :to="productUrl">
+                <router-link :to="{ name: 'product', params: { handle: product.handle } }">
                     <h2 class="product-card__title">
                         {{ product.title }}
                     </h2>
@@ -36,10 +36,6 @@
 
             price() {
                 return this.product.variants.edges[0].node.price;
-            },
-
-            productUrl() {
-                return '/product/' + this.product.handle;
             }
         }
     }
