@@ -6,6 +6,8 @@ import gql from 'graphql-tag';
 
 import components from './components';
 
+import { GET_CHECKOUT, GET_PRODUCTS, GET_PRODUCT, GET_COLLECTION } from './graphql/queries';
+
 import BaseProductsView from './views/BaseProductsView';
 import ProductsView from './views/ProductsView';
 import ProductView from './views/ProductView';
@@ -32,7 +34,7 @@ let Storefront = {
         }
 
         if (!options.cache) {
-            throw new Error("You must provide a cache create with 'apollo-cache-inmemory'");
+            throw new Error("You must provide a cache created with 'apollo-cache-inmemory'");
         }
 
         if (!options.persistor) {
@@ -85,6 +87,8 @@ let Storefront = {
         Vue.component('sf-product-card', components.ProductCard);
         Vue.component('sf-product-list', components.ProductList);
 
+        Vue.component('sf-collection', components.Collection);
+
         Vue.component('sf-product', components.Product);
         Vue.component('sf-product-description', components.ProductDescription);
         Vue.component('sf-product-actions', components.ProductActions);
@@ -110,6 +114,8 @@ let Storefront = {
         Vue.component('sf-loader', components.Loader);
         Vue.component('sf-pagination', components.Pagination);
         Vue.component('sf-pagination-collection', components.PaginationCollection);
+
+        Vue.component('sf-collection-view', CollectionView);
     },
 
     setupRoutes(router) {
@@ -128,5 +134,20 @@ let Storefront = {
 
 };
 
+export { 
+    // Views
+    ProductsView, 
+    ProductView, 
+    CollectionView, 
+    CartView, 
+    TagView, 
+    VendorView, 
+    ProductTypeView,
 
+    // GraphQL Queries
+    GET_CHECKOUT, 
+    GET_PRODUCTS, 
+    GET_PRODUCT, 
+    GET_COLLECTION 
+}
 export default Storefront;

@@ -1,16 +1,12 @@
 <template>
     <span>
-        {{ prefix }}{{ price }}{{ suffix }}
+        {{ prefix }}<slot></slot>{{ suffix }}
     </span>
 </template>
 
 <script>
     export default {
         props: {
-            price: {
-                type: [String, Number],
-                required: true
-            },
             prefix: {
                 type: String,
                 required: false,

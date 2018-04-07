@@ -8,6 +8,7 @@ export default gql`
             node {
                 title,
                 handle,
+                vendor,
                 images(first: 1) {
                     ...ImageConnectionFragment
                 },

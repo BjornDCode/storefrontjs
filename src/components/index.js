@@ -1,6 +1,8 @@
 import Cart from './cart/Cart';
 import CartLink from './cart/CartLink'; 
 
+import Collection from './collection/Collection'; 
+
 import ProductCard from './product/ProductCard';
 import ProductList from './product/ProductList';
 
@@ -30,6 +32,8 @@ import PaginationCollection from './utilities/PaginationCollection';
 export default {
     Cart,
     CartLink,
+
+    Collection,
 
     ProductCard,
     ProductList,

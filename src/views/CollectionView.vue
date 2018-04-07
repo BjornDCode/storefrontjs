@@ -8,27 +8,10 @@
             <sf-error :error="{ message: 'Sorry, something went wrong' }"></sf-error>
         </div>
     
-        <div class="collection" v-if="collection">
-            <div class="collection__image" v-if="collection.image">
-                <img :src="collection.image.src" :alt="collection.image.altText">
-            </div>
-            <div class="collection__info">
-                <h1 class="collection__info--title">{{ collection.title }}</h1>
-                <div class="collection__info--description">{{ collection.descriptionHtml }}</div>
-            </div>
-            <div class="collection__products">
-                <h2>Products</h2>
-                <sf-product-list :products="products"></sf-product-list>
-
-                <sf-pagination-collection
-                    :query="$apollo.queries.collection"
-                    :data="collection"
-                ></sf-pagination-collection>
-
-                <div v-if="!products.length">
-                    Sorry, no products in this category 
-                </div>
-            </div>
+        <div v-if="collection">
+            <sf-collection :collection="collection" :query="$apollo.queries.collection">
+                <!-- Output $slots here -->
+            </sf-collection>
         </div>
     </div>
 </template>
@@ -38,6 +21,13 @@
     import { GET_COLLECTION } from '../graphql/queries';
 
     export default {
+        props: {
+            collectionHandle: {
+                type: String,
+                required: false
+            } 
+        },
+
         data() {
             return {
                 collection: undefined,
@@ -50,7 +40,7 @@
                 query: GET_COLLECTION,
                 variables() {
                     return {
-                        handle: this.handle
+                        handle: this.collectionHandle || this.handle
                     }
                 },
                 update: data => data.shop.collectionByHandle,
@@ -61,10 +51,6 @@
         computed: {
             handle() {
                 return this.$route.params.handle;
-            },
-
-            products() {
-                return this.collection.products.edges.map(product => product.node);
             }
         }
 
